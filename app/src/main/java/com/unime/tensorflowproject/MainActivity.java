@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,11 +30,14 @@ public class MainActivity extends AppCompatActivity {
     private final static String fileNameImgRecNN = "tensorflow_inception_graph.pb";
     private final static String fileNameImgRecLabels = "imagenet_comp_graph_label_strings.txt";
 
+    private static final String BOOLEAN_CONTENTS = "BooleanContents";
+
     private DownloadManager downloadManager;
     private IntentFilter filter;
     private List<Download> downloadsEnqueued;
 
-    private ImageButton downloadImgRec;
+    private Button btnDownloadImgRec;
+    private Boolean btnDownloadImgRecState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         downloadsEnqueued = new ArrayList<>();
         filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 
-        downloadImgRec = (ImageButton) findViewById(R.id.downloadImgRec);
+        btnDownloadImgRec = (Button) findViewById(R.id.btnDownloadImgRec);
 
-        downloadImgRec.setOnClickListener((view) -> {
+        btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
             DownloadData downloadImgRecNN = new DownloadData();
             downloadImgRecNN.execute(urlImgRecNN, fileNameImgRecNN);
@@ -72,6 +76,25 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(downloadReceiver);
         super.onPause();
         Log.d(TAG, "onPause: end");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(BOOLEAN_CONTENTS, btnDownloadImgRecState);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        btnDownloadImgRecState = savedInstanceState.getBoolean(BOOLEAN_CONTENTS);
+        if(btnDownloadImgRecState == false) {
+            btnDownloadImgRec.setClickable(btnDownloadImgRecState);
+            btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
+        }
+
     }
 
     private class DownloadData extends AsyncTask<String, Void, Boolean> {
@@ -155,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 //            else
 //                Log.d(TAG, "onReceive: complete image download " + downloadsEnqueued.get(1).getStatus());
 
-            
+            updateButton();
 
             Toast toast = Toast.makeText(context,
                     "Download Complete", Toast.LENGTH_LONG);
@@ -163,4 +186,20 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         }
     };
+
+    private void updateButton() {
+        List<Download> downloadedFile = new ArrayList<>();
+
+        downloadsEnqueued.stream().filter((download) -> (download.getDownlaodObjectType()==Download.DownloadObjectType.LABELS_IMG_REC) ||
+                (download.getDownlaodObjectType()==Download.DownloadObjectType.NEURAL_NETWORK_IMG_REC)).
+                filter( download -> download.getStatus().equals("true")).forEach(downloadedFile::add);
+
+        if(downloadedFile.size() > 1) {
+            Log.d(TAG, "updateButton: true");
+            btnDownloadImgRecState = false;
+            btnDownloadImgRec.setClickable(btnDownloadImgRecState);
+            btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
+        }
+
+    }
 }
