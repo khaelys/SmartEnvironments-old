@@ -10,6 +10,7 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
+import android.media.Image.Plane;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Build;
@@ -28,7 +29,7 @@ import com.unime.tensorflowproject.env.Logger;
 
 import java.nio.ByteBuffer;
 
-public abstract class CameraActivity extends AppCompatActivity implements OnImageAvailableListener, Camera.PreviewCallback{
+public abstract class CameraActivity extends AppCompatActivity implements OnImageAvailableListener, Camera.PreviewCallback {
 
     private static final Logger LOGGER = new Logger();
 
@@ -419,5 +420,4 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
     protected abstract int getLayoutId();
 
     protected abstract Size getDesiredPreviewFrameSize();
-}
 }
