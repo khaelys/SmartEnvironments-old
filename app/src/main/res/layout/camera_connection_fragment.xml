@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.unime.tensorflowproject.CameraConnectionFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.unime.tensorflowproject.AutoFitTextureView
+            android:id="@+id/texture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+        <com.unime.tensorflowproject.RecognitionScoreView
+            android:id="@+id/results"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:layout_alignParentTop="true" />
+
+        <com.unime.tensorflowproject.OverlayView
+            android:id="@+id/debug_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</FrameLayout>
