@@ -64,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "downloadURL: done");
         });
 
+        /** switch to CameraActivity */
         btnRecognize.setOnClickListener((view) -> {
-            // switch activity
+            Intent intent = new Intent(this, CameraActivity.class);
+            startActivity(intent);
         });
     }
 
