@@ -24,20 +24,23 @@ import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private final static String urlImgRecNN = "http://download1321.mediafireuserdownload.com/b93xt61zp1lg/k206atr6s0rsp68/tensorflow_inception_graph.pb";
-    private final static String urlImgRecLabels = "http://download1477.mediafireuserdownload.com/ns2apr8x4seg/ypdqi09v2d8d8y0/imagenet_comp_graph_label_strings.txt";
+    private final static String urlImgRecNN = "http://download1321.mediafireuserdownload.com/s3geosbup27g/k206atr6s0rsp68/tensorflow_inception_graph.pb";
+    private final static String urlImgRecLabels = "http://download1477.mediafireuserdownload.com/6ok784x2xe9g/ypdqi09v2d8d8y0/imagenet_comp_graph_label_strings.txt";
 
     private final static String fileNameImgRecNN = "tensorflow_inception_graph.pb";
     private final static String fileNameImgRecLabels = "imagenet_comp_graph_label_strings.txt";
 
-    private static final String BOOLEAN_CONTENTS = "BooleanContents";
+    private static final String DOWNLOAD_IMG_REC_STATE = "ButtonDownloadImgRecState";
+    private static final String RECOGNIZE_STATE = "ButtonRecognizeState";
 
     private DownloadManager downloadManager;
     private IntentFilter filter;
     private List<Download> downloadsEnqueued;
 
     private Button btnDownloadImgRec;
+    private Button btnRecognize;
     private Boolean btnDownloadImgRecState = true;
+    private Boolean btnRecognizeState = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 
         btnDownloadImgRec = (Button) findViewById(R.id.btnDownloadImgRec);
+        btnRecognize = (Button) findViewById(R.id.btnRecognize);
+        btnRecognize.setClickable(btnRecognizeState);
 
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
@@ -57,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
             DownloadData downloadImgRecLabels = new DownloadData();
             downloadImgRecLabels.execute(urlImgRecLabels, fileNameImgRecLabels);
             Log.d(TAG, "downloadURL: done");
+        });
+
+        btnRecognize.setOnClickListener((view) -> {
+            // switch activity
         });
     }
 
@@ -80,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(BOOLEAN_CONTENTS, btnDownloadImgRecState);
+        outState.putBoolean(DOWNLOAD_IMG_REC_STATE, btnDownloadImgRecState);
+        outState.putBoolean(RECOGNIZE_STATE, btnRecognizeState);
 
         super.onSaveInstanceState(outState);
     }
@@ -89,14 +99,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        btnDownloadImgRecState = savedInstanceState.getBoolean(BOOLEAN_CONTENTS);
+        btnDownloadImgRecState = savedInstanceState.getBoolean(DOWNLOAD_IMG_REC_STATE);
+        btnRecognizeState = savedInstanceState.getBoolean(RECOGNIZE_STATE);
+
         if(btnDownloadImgRecState == false) {
             btnDownloadImgRec.setClickable(btnDownloadImgRecState);
             btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
         }
-
+        if(btnRecognizeState == true) {
+            btnRecognize.setClickable(btnRecognizeState);
+            btnRecognize.setBackgroundColor(Color.parseColor("#FFFF4081"));
+        }
     }
 
+    /** Define an AsyncTask to download data */
     private class DownloadData extends AsyncTask<String, Void, Boolean> {
         private static final String TAG = "DownloadData";
 
@@ -158,7 +174,8 @@ public class MainActivity extends AppCompatActivity {
         //column for download  status
         int columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
         int status = cursor.getInt(columnIndex);
-
+        // il controllo non basta nel caso di download con i link diretti, che anche se non validi
+        // scaricano comunque la pagina web.
         switch (status) {
             case DownloadManager.STATUS_SUCCESSFUL:
                 return true;
@@ -199,6 +216,9 @@ public class MainActivity extends AppCompatActivity {
             btnDownloadImgRecState = false;
             btnDownloadImgRec.setClickable(btnDownloadImgRecState);
             btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
+            btnRecognizeState = true;
+            btnRecognize.setClickable(btnRecognizeState);
+            btnRecognize.setBackgroundColor(Color.parseColor("#FFFF4081"));
         }
 
     }
