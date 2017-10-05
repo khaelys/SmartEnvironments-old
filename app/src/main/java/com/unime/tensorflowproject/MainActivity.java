@@ -24,14 +24,16 @@ import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private final static String urlImgRecNN = "http://download1321.mediafireuserdownload.com/ctulh2t5h4tg/k206atr6s0rsp68/tensorflow_inception_graph.pb";
-    private final static String urlImgRecLabels = "http://download1477.mediafireuserdownload.com/3mneoq5lcabg/ypdqi09v2d8d8y0/imagenet_comp_graph_label_strings.txt";
+    private final static String urlImgRecNN = "http://download1321.mediafireuserdownload.com/46riblnwo4ig/k206atr6s0rsp68/tensorflow_inception_graph.pb";
+    private final static String urlImgRecLabels = "http://download1477.mediafireuserdownload.com/4iqg42880crg/ypdqi09v2d8d8y0/imagenet_comp_graph_label_strings.txt";
 
     private final static String fileNameImgRecNN = "tensorflow_inception_graph.pb";
     private final static String fileNameImgRecLabels = "imagenet_comp_graph_label_strings.txt";
 
     private static final String DOWNLOAD_IMG_REC_STATE = "ButtonDownloadImgRecState";
     private static final String RECOGNIZE_STATE = "ButtonRecognizeState";
+
+
 
     private DownloadManager downloadManager;
     private IntentFilter filter;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: MainActivity start");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnDownloadImgRec = (Button) findViewById(R.id.btnDownloadImgRec);
         btnRecognize = (Button) findViewById(R.id.btnRecognize);
-        btnRecognize.setClickable(btnRecognizeState);
+        btnRecognize.setEnabled(btnRecognizeState);
 
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
@@ -64,11 +67,13 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "downloadURL: done");
         });
 
-        /** switch to CameraActivity */
+        /** switch to ClassifierActivity */
         btnRecognize.setOnClickListener((view) -> {
+            Log.d(TAG, "onClickListener: Recognize Button" );
             Intent intent = new Intent(this, ClassifierActivity.class);
             startActivity(intent);
         });
+        Log.d(TAG, "onCreate: MainActivity end" + btnRecognizeState);
     }
 
     @Override
@@ -105,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
         btnRecognizeState = savedInstanceState.getBoolean(RECOGNIZE_STATE);
 
         if(btnDownloadImgRecState == false) {
-            btnDownloadImgRec.setClickable(btnDownloadImgRecState);
+            btnDownloadImgRec.setEnabled(btnDownloadImgRecState);
             btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
         }
         if(btnRecognizeState == true) {
-            btnRecognize.setClickable(btnRecognizeState);
+            btnRecognize.setEnabled(btnRecognizeState);
             btnRecognize.setBackgroundColor(Color.parseColor("#FFFF4081"));
         }
     }
@@ -192,11 +197,6 @@ public class MainActivity extends AppCompatActivity {
             downloadsEnqueued.stream().filter((download) -> download.getStatus().equals("false")).
                     filter(download->checkStatus(download.getDownloadID())).forEach(download -> download.setStatus("true"));
 
-//            if(checkStatus(downloadsEnqueued.get(0).getDownloadID()))
-//                Log.d(TAG, "onReceive: Download Complete " + downloadsEnqueued.get(0).getStatus());
-//            else
-//                Log.d(TAG, "onReceive: complete image download " + downloadsEnqueued.get(1).getStatus());
-
             updateButton();
 
             Toast toast = Toast.makeText(context,
@@ -216,12 +216,11 @@ public class MainActivity extends AppCompatActivity {
         if(downloadedFile.size() > 1) {
             Log.d(TAG, "updateButton: true");
             btnDownloadImgRecState = false;
-            btnDownloadImgRec.setClickable(btnDownloadImgRecState);
+            btnDownloadImgRec.setEnabled(btnDownloadImgRecState);
             btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
             btnRecognizeState = true;
-            btnRecognize.setClickable(btnRecognizeState);
+            btnRecognize.setEnabled(btnRecognizeState);
             btnRecognize.setBackgroundColor(Color.parseColor("#FFFF4081"));
         }
-
     }
 }

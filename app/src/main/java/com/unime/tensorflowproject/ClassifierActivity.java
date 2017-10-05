@@ -56,14 +56,12 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     private static final String OUTPUT_NAME = "output";
 
 //    File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "");
-//    private final String pathName = file.toString();
-//        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "");
-//        final String pathName = file.toString();
+    private final String pathName = "/storage/emulated/0/Android/data/com.unime.tensorflowproject/files/Download/";
 
-//    private final String MODEL_FILE = pathName + "tensorflow_inception_graph.pb";
-    private static final String MODEL_FILE = "file:///android_asset/tensorflow_inception_graph.pb";
-//    private final String LABEL_FILE = pathName + "imagenet_comp_graph_label_strings.txt";
-    private final String LABEL_FILE = "file:///android_asset/imagenet_comp_graph_label_strings.txt";
+    private final String MODEL_FILE = pathName + "tensorflow_inception_graph.pb";
+//    private static final String MODEL_FILE = "file:///android_asset/tensorflow_inception_graph.pb";
+    private final String LABEL_FILE = pathName + "imagenet_comp_graph_label_strings.txt";
+//     private final String LABEL_FILE = "file:///android_asset/imagenet_comp_graph_label_strings.txt";
 
     private static final boolean MAINTAIN_ASPECT = true;
 
@@ -92,7 +90,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
-
         final float textSizePx = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, getResources().getDisplayMetrics());
         borderedText = new BorderedText(textSizePx);
