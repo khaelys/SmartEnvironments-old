@@ -24,8 +24,8 @@ import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private final static String urlImgRecNN = "http://download1321.mediafireuserdownload.com/s3geosbup27g/k206atr6s0rsp68/tensorflow_inception_graph.pb";
-    private final static String urlImgRecLabels = "http://download1477.mediafireuserdownload.com/6ok784x2xe9g/ypdqi09v2d8d8y0/imagenet_comp_graph_label_strings.txt";
+    private final static String urlImgRecNN = "http://download1321.mediafireuserdownload.com/ctulh2t5h4tg/k206atr6s0rsp68/tensorflow_inception_graph.pb";
+    private final static String urlImgRecLabels = "http://download1477.mediafireuserdownload.com/3mneoq5lcabg/ypdqi09v2d8d8y0/imagenet_comp_graph_label_strings.txt";
 
     private final static String fileNameImgRecNN = "tensorflow_inception_graph.pb";
     private final static String fileNameImgRecLabels = "imagenet_comp_graph_label_strings.txt";
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         /** switch to CameraActivity */
         btnRecognize.setOnClickListener((view) -> {
-            Intent intent = new Intent(this, CameraActivity.class);
+            Intent intent = new Intent(this, ClassifierActivity.class);
             startActivity(intent);
         });
     }
