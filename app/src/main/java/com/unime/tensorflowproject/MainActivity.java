@@ -33,17 +33,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String DOWNLOAD_IMG_REC_STATE = "ButtonDownloadImgRecState";
     private static final String RECOGNIZE_STATE = "ButtonRecognizeState";
 
-
-
     private DownloadManager downloadManager;
+    private DownloadData downloadImgRecNN;
+    private DownloadData downloadImgRecLabels;
     private IntentFilter filter;
     private List<Download> downloadsEnqueued;
 
     private Button btnDownloadImgRec;
     private Button btnRecognize;
     private Boolean btnDownloadImgRecState = true;
-
-    // da mettere a false dopo il debug!!!!!!!!!!!
     private Boolean btnRecognizeState = false;
 
     @Override
@@ -52,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        downloadImgRecNN = new DownloadData();
+        downloadImgRecLabels = new DownloadData();
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadsEnqueued = new ArrayList<>();
         filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
@@ -62,11 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
-            DownloadData downloadImgRecNN = new DownloadData();
-            downloadImgRecNN.execute(urlImgRecNN, fileNameImgRecNN);
-            DownloadData downloadImgRecLabels = new DownloadData();
-            downloadImgRecLabels.execute(urlImgRecLabels, fileNameImgRecLabels);
-            Log.d(TAG, "downloadURL: done");
+            if(downloadImgRecNN.mustBeDownlaoded()) {
+                downloadImgRecNN.execute(urlImgRecNN, fileNameImgRecNN);
+            }
+            if(downloadImgRecLabels.mustBeDownloaded()) {
+                downloadImgRecLabels.execute(urlImgRecLabels, fileNameImgRecLabels);
+            }
         });
 
         /** switch to ClassifierActivity */
