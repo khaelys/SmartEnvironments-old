@@ -8,7 +8,9 @@ import android.util.Log;
 import org.tensorflow.Operation;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,7 +22,7 @@ import java.util.Vector;
 public class TensorFlowImageClassifier implements Classifier {
     private static final String TAG = "TensorFlowImageClassifier";
 
-    private static final String pathName = "/storage/emulated/0/Android/data/com.unime.tensorflowproject/files/Download/";
+    private static final String ASSET_FILE_PREFIX = "false";
 
     // Only return this many results with at least this confidence.
     private static final int MAX_RESULTS = 3;
@@ -73,12 +75,30 @@ public class TensorFlowImageClassifier implements Classifier {
         c.outputName = outputName;
 
         // Read the label names into memory.
-        // TODO(andrewharp): make this handle non-assets.
-        String actualFilename = labelFilename.split(pathName)[1];
+        // this handle has been made non-assets.
+        final boolean hasAssetPrefix = labelFilename.startsWith(ASSET_FILE_PREFIX);
+        InputStream is = null;
+        String actualFilename = "";
+
+        try {
+            actualFilename = hasAssetPrefix ? labelFilename.split(ASSET_FILE_PREFIX)[1] : labelFilename;
+            is = assetManager.open(actualFilename);
+        } catch (IOException e) {
+            if (hasAssetPrefix) {
+                throw new RuntimeException("Failed to load model from '" + labelFilename + "'", e);
+            }
+            // Perhaps the model file is not an asset but is on disk.
+            try {
+                is = new FileInputStream(labelFilename);
+            } catch (IOException e2) {
+                throw new RuntimeException("Failed to load model on disk from '" + labelFilename + "'", e);
+            }
+        }
+
         Log.i(TAG, "Reading labels from: " + actualFilename);
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(assetManager.open(actualFilename)));
+            br = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = br.readLine()) != null) {
                 c.labels.add(line);

@@ -25,7 +25,9 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ClassifierActivity" >
+        <activity
+                android:name=".ClassifierActivity"
+                android:screenOrientation="portrait" >
         </activity>
 
     </application>

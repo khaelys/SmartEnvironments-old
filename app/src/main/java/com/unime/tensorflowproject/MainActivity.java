@@ -24,8 +24,8 @@ import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private final static String urlImgRecNN = "http://download1321.mediafireuserdownload.com/46riblnwo4ig/k206atr6s0rsp68/tensorflow_inception_graph.pb";
-    private final static String urlImgRecLabels = "http://download1477.mediafireuserdownload.com/4iqg42880crg/ypdqi09v2d8d8y0/imagenet_comp_graph_label_strings.txt";
+    private final static String urlImgRecNN = "http://smartenvironment.altervista.org/tensorflow_inception_graph.pb";
+    private final static String urlImgRecLabels = "http://smartenvironment.altervista.org/imagenet_comp_graph_label_strings.txt";
 
     private final static String fileNameImgRecNN = "tensorflow_inception_graph.pb";
     private final static String fileNameImgRecLabels = "imagenet_comp_graph_label_strings.txt";
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnDownloadImgRec;
     private Button btnRecognize;
     private Boolean btnDownloadImgRecState = true;
+
+    // da mettere a false dopo il debug!!!!!!!!!!!
     private Boolean btnRecognizeState = false;
 
     @Override
