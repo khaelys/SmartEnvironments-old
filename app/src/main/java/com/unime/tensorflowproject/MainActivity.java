@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private Boolean btnDownloadImgRecState = true;
     private Boolean btnRecognizeState = false;
 
+    protected Boolean imgRecLabelsState = false;
+    protected Boolean imgRecNNState = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: MainActivity start");
@@ -51,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        downloadImgRecNN = new DownloadData();
-        downloadImgRecLabels = new DownloadData();
+        downloadImgRecNN = new DownloadData(fileNameImgRecNN);
+        downloadImgRecLabels = new DownloadData(fileNameImgRecLabels);
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadsEnqueued = new ArrayList<>();
         filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
@@ -63,11 +68,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
-            if(downloadImgRecNN.mustBeDownlaoded()) {
+            if(downloadImgRecNN.mustBeDownloaded()) {
                 downloadImgRecNN.execute(urlImgRecNN, fileNameImgRecNN);
             }
             if(downloadImgRecLabels.mustBeDownloaded()) {
                 downloadImgRecLabels.execute(urlImgRecLabels, fileNameImgRecLabels);
+            }
+            if(imgRecLabelsState && imgRecNNState) {
+                updateButtons();
             }
         });
 
@@ -126,6 +134,29 @@ public class MainActivity extends AppCompatActivity {
     /** Define an AsyncTask to download data */
     private class DownloadData extends AsyncTask<String, Void, Boolean> {
         private static final String TAG = "DownloadData";
+        private String fileName;
+
+        public DownloadData(String fileName) {
+            this.fileName = fileName;
+        }
+
+        public boolean mustBeDownloaded() {
+            File fileObject = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "");
+            String[] files = fileObject.list();
+            if(files != null){
+                for(String file : files) {
+                    if(file.equals(fileName)) {
+                        if(fileName.equals(fileNameImgRecLabels)) {
+                            imgRecLabelsState = true;
+                        } else if (fileName.equals(fileNameImgRecNN)) {
+                            imgRecNNState = true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
@@ -165,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
+
+
     }
 
     public boolean checkStatus(long DownloadId) {
@@ -201,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             downloadsEnqueued.stream().filter((download) -> download.getStatus().equals("false")).
                     filter(download->checkStatus(download.getDownloadID())).forEach(download -> download.setStatus("true"));
 
-            updateButton();
+            buttonMustBeUpdated();
 
             Toast toast = Toast.makeText(context,
                     "Download Complete", Toast.LENGTH_LONG);
@@ -210,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void updateButton() {
+    private void buttonMustBeUpdated() {
         List<Download> downloadedFile = new ArrayList<>();
 
         downloadsEnqueued.stream().filter((download) -> (download.getDownlaodObjectType()==Download.DownloadObjectType.LABELS_IMG_REC) ||
@@ -218,13 +251,17 @@ public class MainActivity extends AppCompatActivity {
                 filter( download -> download.getStatus().equals("true")).forEach(downloadedFile::add);
 
         if(downloadedFile.size() > 1) {
-            Log.d(TAG, "updateButton: true");
-            btnDownloadImgRecState = false;
-            btnDownloadImgRec.setEnabled(btnDownloadImgRecState);
-            btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
-            btnRecognizeState = true;
-            btnRecognize.setEnabled(btnRecognizeState);
-            btnRecognize.setBackgroundColor(Color.parseColor("#FFFF4081"));
+            Log.d(TAG, "buttonMustBeUpdated: true");
+            updateButtons();
         }
+    }
+
+    private void updateButtons() {
+        btnDownloadImgRecState = false;
+        btnDownloadImgRec.setEnabled(btnDownloadImgRecState);
+        btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FF3F51B5"));
+        btnRecognizeState = true;
+        btnRecognize.setEnabled(btnRecognizeState);
+        btnRecognize.setBackgroundColor(Color.parseColor("#FFFF4081"));
     }
 }
