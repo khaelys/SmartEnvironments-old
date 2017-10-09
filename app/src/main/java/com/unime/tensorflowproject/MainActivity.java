@@ -56,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        downloadImgRecNN = new DownloadData(fileNameImgRecNN);
-        downloadImgRecLabels = new DownloadData(fileNameImgRecLabels);
+
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadsEnqueued = new ArrayList<>();
         filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
@@ -68,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
+            downloadImgRecNN = new DownloadData(fileNameImgRecNN);
+            downloadImgRecLabels = new DownloadData(fileNameImgRecLabels);
+
             if(downloadImgRecNN.mustBeDownloaded()) {
                 downloadImgRecNN.execute(urlImgRecNN, fileNameImgRecNN);
             }
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ClassifierActivity.class);
             startActivity(intent);
         });
-        Log.d(TAG, "onCreate: MainActivity end" + btnRecognizeState);
+        Log.d(TAG, "onCreate: MainActivity end");
     }
 
     @Override
@@ -200,11 +202,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean checkStatus(long DownloadId) {
+    public boolean checkStatus(Long downloadId) {
         boolean status = false;
         DownloadManager.Query queryDownload = new DownloadManager.Query();
+
+        if(downloadId == null) {
+            return status;
+        }
+
         //set the query filter to our previously Enqueued download
-        queryDownload.setFilterById(DownloadId);
+        queryDownload.setFilterById(downloadId);
 
         //Query the download manager about downloads that have been requested.
         Cursor cursor = downloadManager.query(queryDownload);
@@ -227,17 +234,29 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    // TODO: check if downloads can be simultaneously capture from the BroadcastReceiver
     private BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // update the status of the downloaded file which send this Intent.
+            Download downloadedFile = new Download();
+            // update the status of the downloaded file which sent this Intent.
             downloadsEnqueued.stream().filter((download) -> download.getStatus().equals("false")).
-                    filter(download->checkStatus(download.getDownloadID())).forEach(download -> download.setStatus("true"));
+                    filter(download->checkStatus(download.getDownloadID())).forEach(download -> {
+                        downloadedFile.setDownloadID(download.getDownloadID());
+                        download.setStatus("true");
+                    });
 
             buttonMustBeUpdated();
 
-            Toast toast = Toast.makeText(context,
-                    "Download Complete", Toast.LENGTH_LONG);
+            Toast toast;
+            if(checkStatus(downloadedFile.getDownloadID())) {
+                toast = Toast.makeText(context,
+                        "Download Completed", Toast.LENGTH_LONG);
+            }
+            else {
+                toast = Toast.makeText(context,
+                        "Download Failed", Toast.LENGTH_LONG);
+            }
             toast.setGravity(Gravity.BOTTOM, 25, 400);
             toast.show();
         }
