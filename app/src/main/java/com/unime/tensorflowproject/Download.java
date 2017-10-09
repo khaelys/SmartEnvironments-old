@@ -5,7 +5,7 @@ import android.util.Log;
 import static android.content.ContentValues.TAG;
 
 public class Download {
-    private Long downloadID;
+    private Long downloadId;
     private DownloadObjectType downlaodObjectType;
     private String status = "false";  // stato del download effettuato??
 
@@ -14,12 +14,12 @@ public class Download {
         LABELS_IMG_REC
     }
 
-    public Long getDownloadID() {
-        return downloadID;
+    public Long getDownloadId() {
+        return downloadId;
     }
 
-    public void setDownloadID(Long downloadID) {
-        this.downloadID = downloadID;
+    public void setDownloadId(Long downloadId) {
+        this.downloadId = downloadId;
     }
 
     public DownloadObjectType getDownlaodObjectType() {
@@ -48,5 +48,11 @@ public class Download {
                 Log.e(TAG, "getEnum: No Match!");
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "\n" + this.getDownloadId() + "\n" + this.getDownlaodObjectType() + "\n" +
+                this.getStatus() + "\n";
     }
 }

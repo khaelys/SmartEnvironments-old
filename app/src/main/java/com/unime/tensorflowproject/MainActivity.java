@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        restoreDownloadsState();
 
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadsEnqueued = new ArrayList<>();
@@ -133,6 +134,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        saveDownloadsState();
+        super.onDestroy();
+    }
+
     /** Define an AsyncTask to download data */
     private class DownloadData extends AsyncTask<String, Void, Boolean> {
         private static final String TAG = "DownloadData";
@@ -189,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 Long referenceId = downloadManager.enqueue(request);
 
                 Download download = new Download();
-                download.setDownloadID(referenceId);
+                download.setDownloadId(referenceId);
                 download.setDownlaodObjectType(Download.getEnum(fileName));
                 downloadsEnqueued.add(download);
             } catch(Exception e) {
@@ -198,8 +205,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
-
-
     }
 
     public boolean checkStatus(Long downloadId) {
@@ -228,6 +233,11 @@ public class MainActivity extends AppCompatActivity {
         // il controllo non basta nel caso di download con i link diretti, che anche se non validi
         // scaricano comunque la pagina web.
         switch (status) {
+            case DownloadManager.STATUS_FAILED:
+                toaster("Download failed");
+                break;
+            case DownloadManager.STATUS_PAUSED:
+                toaster("Download paused");
             case DownloadManager.STATUS_SUCCESSFUL:
                 return true;
         }
@@ -241,15 +251,17 @@ public class MainActivity extends AppCompatActivity {
             Download downloadedFile = new Download();
             // update the status of the downloaded file which sent this Intent.
             downloadsEnqueued.stream().filter((download) -> download.getStatus().equals("false")).
-                    filter(download->checkStatus(download.getDownloadID())).forEach(download -> {
-                        downloadedFile.setDownloadID(download.getDownloadID());
+                    filter(download->checkStatus(download.getDownloadId())).forEach(download -> {
+                        downloadedFile.setDownloadId(download.getDownloadId());
+                Log.d(TAG, "debug: checkstatus " + checkStatus(downloadedFile.getDownloadId()));
                         download.setStatus("true");
                     });
+            Log.d(TAG, "debug: =================" + downloadedFile);
 
             buttonMustBeUpdated();
 
             Toast toast;
-            if(checkStatus(downloadedFile.getDownloadID())) {
+            if(checkStatus(downloadedFile.getDownloadId())) {
                 toast = Toast.makeText(context,
                         "Download Completed", Toast.LENGTH_LONG);
             }
@@ -262,6 +274,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void toaster(String message) {
+        Log.d(TAG, "toaster: start");
+        Toast toast = Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM, 25, 400);
+        toast.show();
+    }
+
     private void buttonMustBeUpdated() {
         List<Download> downloadedFile = new ArrayList<>();
 
@@ -269,10 +288,13 @@ public class MainActivity extends AppCompatActivity {
                 (download.getDownlaodObjectType()==Download.DownloadObjectType.NEURAL_NETWORK_IMG_REC)).
                 filter( download -> download.getStatus().equals("true")).forEach(downloadedFile::add);
 
-        if(downloadedFile.size() > 1) {
-            Log.d(TAG, "buttonMustBeUpdated: true");
-            updateButtons();
+        if(downloadedFile.size() > 1){
+            if(downloadedFile.get(0).getStatus().equals("true") && downloadedFile.get(1).getStatus().equals("true")) {
+                Log.d(TAG, "buttonMustBeUpdated: true");
+                updateButtons();
+            }
         }
+
     }
 
     private void updateButtons() {
@@ -283,4 +305,26 @@ public class MainActivity extends AppCompatActivity {
         btnRecognize.setEnabled(btnRecognizeState);
         btnRecognize.setBackgroundColor(Color.parseColor("#FFFF4081"));
     }
+
+    private void saveDownloadsState() {
+        Log.d(TAG, "saveDownloadsState: start");
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        for(int i = 0; i < downloadsEnqueued.size(); i++) {
+            editor.putLong(downloadsEnqueued.get(i).getDownlaodObjectType().toString(), downloadsEnqueued.get(i).getDownloadId());
+        }
+        editor.apply();
+    }
+
+    private void restoreDownloadsState() {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        boolean defaultValue = false;
+        Long downloadIdImgRecNN = null;
+        Long downloadIdImgRecLabels = null;
+        downloadIdImgRecNN = sharedPref.getLong(Download.DownloadObjectType.NEURAL_NETWORK_IMG_REC.toString());
+
+    }
+
+
 }
