@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         btnRecognize = (Button) findViewById(R.id.btnRecognize);
 
         // check if an useful file hasn't been eliminated
-        if(!mustBeDownloaded(fileNameImgRecNN) && !mustBeDownloaded(fileNameImgRecLabels)) {
+        if (!mustBeDownloaded(fileNameImgRecNN) && !mustBeDownloaded(fileNameImgRecLabels)) {
             restoreDownloadsState();
             buttonMustBeUpdated();
         }
@@ -73,13 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
+
+
             downloadImgRecNN = new DownloadData(fileNameImgRecNN);
             downloadImgRecLabels = new DownloadData(fileNameImgRecLabels);
 
-            if (mustBeDownloaded(downloadImgRecNN.getFileName())) {
+            // Checking for network status and if the file must be downloaded.
+            // If all is ok, we can download our files.
+            if (mustBeDownloaded(downloadImgRecNN.getFileName()) && isNetworkAvailable()) {
                 downloadImgRecNN.execute(urlImgRecNN, fileNameImgRecNN);
             }
-            if (mustBeDownloaded(downloadImgRecLabels.getFileName())) {
+            if (mustBeDownloaded(downloadImgRecLabels.getFileName()) && isNetworkAvailable()) {
                 downloadImgRecLabels.execute(urlImgRecLabels, fileNameImgRecLabels);
             }
             if (imgRecLabelsState && imgRecNNState) {
@@ -90,15 +96,14 @@ public class MainActivity extends AppCompatActivity {
         /** switch to ClassifierActivity */
         btnRecognize.setOnClickListener((view) -> {
             Log.d(TAG, "onClickListener: Recognize Button");
-            if(mustBeDownloaded(fileNameImgRecLabels) || mustBeDownloaded(fileNameImgRecNN)) {
+            if (mustBeDownloaded(fileNameImgRecLabels) || mustBeDownloaded(fileNameImgRecNN)) {
                 btnDownloadImgRecState = true;
                 btnDownloadImgRec.setEnabled(btnRecognizeState);
                 btnDownloadImgRec.setBackgroundColor(Color.parseColor("#FFFF4081"));
                 btnRecognizeState = false;
-                btnRecognize.setEnabled(btnDownloadImgRecState);
+                btnRecognize.setEnabled(btnRecognizeState);
                 btnRecognize.setBackgroundColor(Color.parseColor("#FF3F51B5"));
-            }
-            else {
+            } else {
                 Intent intent = new Intent(this, ClassifierActivity.class);
                 startActivity(intent);
             }
@@ -202,12 +207,21 @@ public class MainActivity extends AppCompatActivity {
                 Long referenceId = downloadManager.enqueue(request);
 
                 saveDownloadsState(Download.getEnum(fileName), referenceId);
+                saveDownloadsState(Download.getEnum(fileName + "_STATUS"), false);
             } catch (Exception e) {
                 Log.e(TAG, "doInBackground: Error " + e.getMessage());
                 return false;
             }
             return true;
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     private boolean mustBeDownloaded(String fileName) {
@@ -224,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     } else if (fileName.equals(fileNameImgRecNN)) {
                         if (isDownloadedFileUpdated(NEURAL_NETWORK_IMG_REC)) {
-                            Log.d(TAG, "mustBeDownloaded: impossibile" + imgRecNNState);
+                            Log.d(TAG, "mustBeDownloaded: imgRecNNState = " + imgRecNNState);
                             imgRecNNState = true;
                             saveDownloadsState(NEURAL_NETWORK_IMG_REC_STATUS, imgRecNNState);
                         }
@@ -300,7 +314,6 @@ public class MainActivity extends AppCompatActivity {
                 assert downloadObjectType != null;
                 switch (downloadObjectType) {
                     case NEURAL_NETWORK_IMG_REC:
-                        Log.d(TAG, "onReceive: sono qui");
                         saveDownloadsState(NEURAL_NETWORK_IMG_REC_STATUS, imgRecNNState);
                         break;
                     case LABELS_IMG_REC:
@@ -326,7 +339,8 @@ public class MainActivity extends AppCompatActivity {
         long imgRecNeuralNetworkId = sharedPref.getLong(NEURAL_NETWORK_IMG_REC.toString(), -1);
         long imgRecLabelsId = sharedPref.getLong(LABELS_IMG_REC.toString(), -1);
 
-        Log.d(TAG, "getDownloadType: " + imgRecLabelsId + " ---- " + imgRecNeuralNetworkId + " ---- " + referenceId);
+        Log.d(TAG, "getDownloadType: " + "imgRecLabelsId = " + imgRecLabelsId + " | imgRecNeuralNetworkId = " +
+                imgRecNeuralNetworkId + " | referenceId = " + referenceId);
 
         if (referenceId == imgRecNeuralNetworkId) {
             return NEURAL_NETWORK_IMG_REC;
@@ -347,13 +361,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean isDownloadedFileUpdated (Download.DownloadObjectType downloadObjectType) {
+    private boolean isDownloadedFileUpdated(Download.DownloadObjectType downloadObjectType) {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 
-        boolean isUpdated = sharedPref.getBoolean(downloadObjectType.toString()+"_STATUS", false);
+        boolean isUpdated = sharedPref.getBoolean(downloadObjectType.toString() + "_STATUS", false);
         Log.d(TAG, "isDownloadedFileUpdated: " + isUpdated);
 
-        if(!isUpdated && checkStatus(getDownloadId(downloadObjectType)).equals("STATUS_SUCCESSFUL")) {
+        if (!isUpdated && checkStatus(getDownloadId(downloadObjectType)).equals("STATUS_SUCCESSFUL")) {
             isUpdated = true;
             Log.d(TAG, "isDownloadedFileUpdated: " + checkStatus(getDownloadId(downloadObjectType)));
         }

@@ -19,6 +19,10 @@ public class Download {
                 return DownloadObjectType.NEURAL_NETWORK_IMG_REC;
             case "imagenet_comp_graph_label_strings.txt":
                 return DownloadObjectType.LABELS_IMG_REC;
+            case "tensorflow_inception_graph.pb_STATUS":
+                return DownloadObjectType.NEURAL_NETWORK_IMG_REC_STATUS;
+            case "imagenet_comp_graph_label_strings.txt_STATUS":
+                return DownloadObjectType.LABELS_IMG_REC_STATUS;
             default:
                 Log.e(TAG, "getEnum: No Match!");
         }

@@ -74,8 +74,7 @@ public class TensorFlowImageClassifier implements Classifier {
         c.inputName = inputName;
         c.outputName = outputName;
 
-        // Read the label names into memory.
-        // this handle has been made non-assets.
+        // Read the label names into memory. This handle has been made non-assets.
         final boolean hasAssetPrefix = labelFilename.startsWith(ASSET_FILE_PREFIX);
         InputStream is = null;
         String actualFilename = "";
