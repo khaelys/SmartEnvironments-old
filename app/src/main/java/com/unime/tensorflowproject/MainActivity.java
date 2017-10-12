@@ -299,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
         return statusText;
     }
 
-    // TODO: check if downloads can be simultaneously capture from the BroadcastReceiver
     private BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
