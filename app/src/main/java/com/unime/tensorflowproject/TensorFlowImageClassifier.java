@@ -6,6 +6,7 @@ import android.os.Trace;
 import android.util.Log;
 
 import org.tensorflow.Operation;
+import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
