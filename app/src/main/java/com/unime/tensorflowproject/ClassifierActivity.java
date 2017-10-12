@@ -50,29 +50,24 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     // --output_node_names="final_result" \
     // --input_binary=true
     private static final int INPUT_SIZE = 224;
-    private static final int IMAGE_MEAN = 117;
-    private static final float IMAGE_STD = 1;
+    private static final int IMAGE_MEAN = 128;
+    private static final float IMAGE_STD = 128.0f;
     private static final String INPUT_NAME = "input";
-    private static final String OUTPUT_NAME = "output";
+    private static final String OUTPUT_NAME = "final_result";
 
-//    File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "");
     private final String pathName = "/storage/emulated/0/Android/data/com.unime.tensorflowproject/files/Download/";
 
     private final String MODEL_FILE = pathName + "tensorflow_inception_graph.pb";
-//    private static final String MODEL_FILE = "file:///android_asset/tensorflow_inception_graph.pb";
     private final String LABEL_FILE = pathName + "imagenet_comp_graph_label_strings.txt";
-//     private final String LABEL_FILE = "file:///android_asset/imagenet_comp_graph_label_strings.txt";
 
     private static final boolean MAINTAIN_ASPECT = true;
 
     private static final Size DESIRED_PREVIEW_SIZE = new Size(640, 480);
 
-
     private Integer sensorOrientation;
     private Classifier classifier;
     private Matrix frameToCropTransform;
     private Matrix cropToFrameTransform;
-
 
     private BorderedText borderedText;
 
