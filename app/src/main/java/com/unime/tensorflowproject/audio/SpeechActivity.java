@@ -1,19 +1,17 @@
 package com.unime.tensorflowproject.audio;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.unime.tensorflowproject.R;
-
 import java.util.ArrayList;
 
-public class SpeechActivity extends AppCompatActivity {
+public class SpeechActivity  {
 
     private static final String TAG = "SpeechActivity";
 
@@ -55,39 +53,51 @@ public class SpeechActivity extends AppCompatActivity {
 
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
+    private String command;
+    private Context context;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_speech);
-        getSpeechInput();
+    public SpeechActivity(Context context) {
+        this.context = context;
     }
-    public void getSpeechInput() {
-        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void createSpeechRecognizer() {
+        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                this.getPackageName());
+                getContext().getPackageName());
 
         SpeechRecognitionListener listener = new SpeechRecognitionListener();
         mSpeechRecognizer.setRecognitionListener(listener);
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void startListening() {
         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
     }
 
-    @Override
-    protected void onDestroy() {
+
+    public void destroySpeechRecognizer() {
         if (mSpeechRecognizer != null)
         {
             mSpeechRecognizer.destroy();
         }
-        super.onDestroy();
+    }
+
+    public void showCommand() {
+        Toast.makeText(getContext(), getCommand(), Toast.LENGTH_SHORT);
     }
 
 
@@ -144,9 +154,8 @@ public class SpeechActivity extends AppCompatActivity {
         {
             Log.d(TAG, "onResults");
             ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-           if(matches.get(0) != null) {
-               Toast.makeText(SpeechActivity.this, matches.get(0), Toast.LENGTH_SHORT).show();
-           }
+            setCommand(matches.get(0));
+            showCommand();
 
             // matches are the return values of speech recognition engine
             // Use these values for whatever you wish to do
@@ -157,4 +166,5 @@ public class SpeechActivity extends AppCompatActivity {
         {
         }
     }
+
 }

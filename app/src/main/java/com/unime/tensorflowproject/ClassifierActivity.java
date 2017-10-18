@@ -1,6 +1,5 @@
 package com.unime.tensorflowproject;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -8,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
@@ -61,14 +61,10 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     private BorderedText borderedText;
 
+    private SpeechActivity speechManager;
     private boolean commandCanBeStarted = true;
 
-    private Intent intent;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.camera_connection_fragment;
-    }
+//    private Intent intent;
 
     @Override
     protected Size getDesiredPreviewFrameSize() {
@@ -76,6 +72,11 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
 
     private static final float TEXT_SIZE_DIP = 10;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.camera_connection_fragment;
+    }
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -153,7 +154,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
                         if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
                             commandCanBeStarted = false;
-                            startActivity(intent);
+                            trySpeech();
                         }
 
                         resultsView.setResults(results);
@@ -161,6 +162,10 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                         readyForNextImage();
                     }
                 });
+    }
+
+    public void trySpeech() {
+        speechManager.startListening();
     }
 
     @Override
@@ -202,8 +207,22 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
 
     @Override
-    public synchronized void onResume() {
-        intent = new Intent(ClassifierActivity.this, SpeechActivity.class);
-        super.onResume();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        speechManager = new SpeechActivity(this);
+        speechManager.createSpeechRecognizer();
     }
+
+    @Override
+    public void onDestroy() {
+        speechManager.destroySpeechRecognizer();
+        super.onDestroy();
+    }
+
+
+    //    @Override
+//    public synchronized void onResume() {
+//        intent = new Intent(ClassifierActivity.this, SpeechActivity.class);
+//        super.onResume();
+//    }
 }

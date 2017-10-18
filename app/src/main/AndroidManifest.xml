@@ -29,10 +29,7 @@
         <activity
             android:name=".ClassifierActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".audio.SpeechActivity"
-            android:label="@string/title_activity_speech"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>
