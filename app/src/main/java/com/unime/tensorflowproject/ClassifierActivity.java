@@ -8,7 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
-import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
@@ -64,7 +63,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     private boolean commandCanBeStarted = true;
 
-    private Intent intent = new Intent(this, SpeechActivity.class);
+    private Intent intent;
 
     @Override
     protected int getLayoutId() {
@@ -151,6 +150,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                             resultsView = (ResultsView) findViewById(R.id.results);
                         }
                         // TODO: Asynchronize this functionality
+
                         if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
                             commandCanBeStarted = false;
                             startActivity(intent);
@@ -201,14 +201,9 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
         }
     }
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
+    public synchronized void onResume() {
+        intent = new Intent(ClassifierActivity.this, SpeechActivity.class);
+        super.onResume();
     }
-
-
-
 }
