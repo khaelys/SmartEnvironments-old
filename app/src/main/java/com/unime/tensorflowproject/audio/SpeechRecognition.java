@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SpeechActivity  {
+public class SpeechRecognition {
 
     private static final String TAG = "SpeechActivity";
 
@@ -56,7 +56,7 @@ public class SpeechActivity  {
     private String command;
     private Context context;
 
-    public SpeechActivity(Context context) {
+    public SpeechRecognition(Context context) {
         this.context = context;
     }
 
@@ -156,9 +156,6 @@ public class SpeechActivity  {
             ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             setCommand(matches.get(0));
             showCommand();
-
-            // matches are the return values of speech recognition engine
-            // Use these values for whatever you wish to do
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.unime.tensorflowproject;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -7,14 +8,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
-import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
 
 import com.unime.tensorflowproject.OverlayView.DrawCallback;
-import com.unime.tensorflowproject.audio.SpeechActivity;
+import com.unime.tensorflowproject.audio.SpeechRecognitionIntentService;
 import com.unime.tensorflowproject.env.BorderedText;
 import com.unime.tensorflowproject.env.ImageUtils;
 import com.unime.tensorflowproject.env.Logger;
@@ -61,10 +61,10 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     private BorderedText borderedText;
 
-    private SpeechActivity speechManager;
+    private Intent mSpeechIntentService;
     private boolean commandCanBeStarted = true;
 
-//    private Intent intent;
+
 
     @Override
     protected Size getDesiredPreviewFrameSize() {
@@ -165,7 +165,8 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
 
     public void trySpeech() {
-        speechManager.startListening();
+        mSpeechIntentService = new Intent(this, SpeechRecognitionIntentService.class);
+        startService(mSpeechIntentService);
     }
 
     @Override
@@ -206,18 +207,15 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        speechManager = new SpeechActivity(this);
-        speechManager.createSpeechRecognizer();
-    }
-
-    @Override
-    public void onDestroy() {
-        speechManager.destroySpeechRecognizer();
-        super.onDestroy();
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//    }
 
 
     //    @Override
