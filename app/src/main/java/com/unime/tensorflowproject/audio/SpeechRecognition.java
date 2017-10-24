@@ -98,6 +98,7 @@ public class SpeechRecognition {
 
     public void showCommand() {
         Toast.makeText(getContext(), getCommand(), Toast.LENGTH_SHORT);
+        Log.d(TAG, "showCommand: " + getCommand());
     }
 
 

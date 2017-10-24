@@ -32,9 +32,9 @@
             android:screenOrientation="portrait"/>
 
         <service
-            android:name=".audio.SpeechRecognitionIntentService"
+            android:name=".audio.SpeechRecognitionService"
             android:exported="false"
-            android:description = "@string/speech_recognition_intent_service_description"
+            android:description = "@string/speech_recognition_service_description"
             />
 
     </application>

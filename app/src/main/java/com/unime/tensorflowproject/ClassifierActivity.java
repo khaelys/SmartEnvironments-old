@@ -14,7 +14,7 @@ import android.util.TypedValue;
 import android.view.Display;
 
 import com.unime.tensorflowproject.OverlayView.DrawCallback;
-import com.unime.tensorflowproject.audio.SpeechRecognitionIntentService;
+import com.unime.tensorflowproject.audio.SpeechRecognitionService;
 import com.unime.tensorflowproject.env.BorderedText;
 import com.unime.tensorflowproject.env.ImageUtils;
 import com.unime.tensorflowproject.env.Logger;
@@ -165,7 +165,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
 
     public void trySpeech() {
-        mSpeechIntentService = new Intent(this, SpeechRecognitionIntentService.class);
+        mSpeechIntentService = new Intent(this, SpeechRecognitionService.class);
         startService(mSpeechIntentService);
     }
 
