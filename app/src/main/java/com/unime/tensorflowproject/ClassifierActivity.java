@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
+import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
@@ -145,12 +146,12 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                         final long startTime = SystemClock.uptimeMillis();
                         final List<Classifier.Recognition> results = classifier.recognizeImage(croppedBitmap);
                         lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+                        Log.d(TAG, "run: lastProcessingTimeMs = " + lastProcessingTimeMs);
                         LOGGER.i("Detect: %s", results);
                         cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
                         if (resultsView == null) {
                             resultsView = (ResultsView) findViewById(R.id.results);
                         }
-                        // TODO: Asynchronize this functionality
 
                         if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
                             commandCanBeStarted = false;
@@ -207,20 +208,11 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
         }
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//    }
-
-
-    //    @Override
-//    public synchronized void onResume() {
-//        intent = new Intent(ClassifierActivity.this, SpeechActivity.class);
-//        super.onResume();
-//    }
+    @Override
+    public synchronized void onDestroy() {
+        if(mSpeechIntentService != null) {
+            stopService(mSpeechIntentService);
+        }
+        super.onDestroy();
+    }
 }

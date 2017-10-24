@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         saveDownloadsState(Download.DownloadObjectType.NEURAL_NETWORK_IMG_REC_STATUS, imgRecNNState);
         saveDownloadsState(Download.DownloadObjectType.LABELS_IMG_REC_STATUS, imgRecLabelsState);
-        Log.d(TAG, "onDestroy: vediamo " + imgRecNNState + imgRecLabelsState);
+//        Log.d(TAG, "onDestroy: vediamo " + imgRecNNState + imgRecLabelsState);
         super.onDestroy();
     }
 

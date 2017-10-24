@@ -6,21 +6,19 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import static android.content.ContentValues.TAG;
-
 public class SpeechRecognitionService extends Service {
     private static final String SPEECH_RECOGNITION_SERVICE_TAG = "SpeechRecognitionService";
     private SpeechRecognition mSpeechRecognitionManager;
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if(getApplicationContext().equals(this)) {
-            Log.d(TAG, "onStartCommand: context are equals");
-        }
-        mSpeechRecognitionManager = new SpeechRecognition(getApplicationContext());
+    public void onCreate() {
+        mSpeechRecognitionManager = new SpeechRecognition(this);
         mSpeechRecognitionManager.createSpeechRecognizer();
-        mSpeechRecognitionManager.startListening();
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mSpeechRecognitionManager.startListening();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -32,8 +30,7 @@ public class SpeechRecognitionService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d(SPEECH_RECOGNITION_SERVICE_TAG, "onDestroy: " + SPEECH_RECOGNITION_SERVICE_TAG);
+        Log.d(SPEECH_RECOGNITION_SERVICE_TAG, "onDestroy");
         mSpeechRecognitionManager.destroySpeechRecognizer();
-        super.onDestroy();
     }
 }

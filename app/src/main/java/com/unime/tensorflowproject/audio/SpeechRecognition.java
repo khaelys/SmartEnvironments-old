@@ -53,6 +53,7 @@ public class SpeechRecognition {
 
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
+    private Intent intentSpeechService;
     private String command;
     private Context context;
 
@@ -96,9 +97,9 @@ public class SpeechRecognition {
         }
     }
 
-    public void showCommand() {
-        Toast.makeText(getContext(), getCommand(), Toast.LENGTH_SHORT);
-        Log.d(TAG, "showCommand: " + getCommand());
+    public void useCommand() {
+        Toast.makeText(getContext(), getCommand(), Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "useCommand: " + getCommand());
     }
 
 
@@ -156,7 +157,7 @@ public class SpeechRecognition {
             Log.d(TAG, "onResults");
             ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             setCommand(matches.get(0));
-            showCommand();
+            useCommand();
         }
 
         @Override
