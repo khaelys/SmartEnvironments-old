@@ -19,4 +19,8 @@ public class SmartObject {
     public List<String> getCommands() {
         return commands;
     }
+
+    public void setCommands(List<String> commands) {
+        this.commands = commands;
+    }
 }

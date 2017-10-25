@@ -19,7 +19,7 @@ import com.unime.tensorflowproject.audio.SpeechRecognitionService;
 import com.unime.tensorflowproject.env.BorderedText;
 import com.unime.tensorflowproject.env.ImageUtils;
 import com.unime.tensorflowproject.env.Logger;
-import com.unime.tensorflowproject.utilities.CommandTrigger;
+import com.unime.tensorflowproject.utilities.SpeechRecognitionTrigger;
 
 import java.util.List;
 import java.util.Vector;
@@ -155,13 +155,16 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                         if (resultsView == null) {
                             resultsView = (ResultsView) findViewById(R.id.results);
                         }
+                        //String prediction = results.get(0).getTitle();
+                        String prediction = "lamp";
+                        double confidence = results.get(0).getConfidence();
 
-                        // TODO: get the CommandTrigger's instance and check if the command
-                        CommandTrigger commandTrigger = CommandTrigger.getInstance();
-                        // has to beeen Triggered
-                        if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
+
+                        // check if the speech regonition has to been Triggered
+                        // if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
+                        if(SpeechRecognitionTrigger.hasToBeTriggered(prediction, confidence, lastProcessingTimeMs) && commandCanBeStarted) {
                             commandCanBeStarted = false;
-                            trySpeech();
+                            trySpeech(prediction);
                         }
 
                         resultsView.setResults(results);
@@ -171,8 +174,9 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                 });
     }
 
-    public void trySpeech() {
+    public void trySpeech(String smartObjectName) {
         mSpeechIntentService = new Intent(this, SpeechRecognitionService.class);
+        mSpeechIntentService.putExtra("SmartObject", smartObjectName);
         startService(mSpeechIntentService);
     }
 

@@ -9,6 +9,8 @@ import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.unime.tensorflowproject.utilities.CommandTrigger;
+
 import java.util.ArrayList;
 
 public class SpeechRecognition {
@@ -17,6 +19,7 @@ public class SpeechRecognition {
 
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
+    private String smartObjectName;
     private String command;
     private Context context;
 
@@ -36,6 +39,14 @@ public class SpeechRecognition {
         return command;
     }
 
+    public String getSmartObjectName() {
+        return smartObjectName;
+    }
+
+    public void setSmartObjectName(String smartObjectName) {
+        this.smartObjectName = smartObjectName;
+    }
+
     public void createSpeechRecognizer() {
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -48,7 +59,8 @@ public class SpeechRecognition {
         mSpeechRecognizer.setRecognitionListener(listener);
     }
 
-    public void startListening() {
+    public void startListening(String smartObjectName) {
+        setSmartObjectName(smartObjectName);
         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
     }
 
@@ -63,9 +75,9 @@ public class SpeechRecognition {
     public void useCommand() {
         Toast.makeText(getContext(), getCommand(), Toast.LENGTH_SHORT).show();
         Log.d(TAG, "useCommand: " + getCommand());
+        CommandTrigger commandTrigger = new CommandTrigger(getSmartObjectName(), getCommand());
+        commandTrigger.tryCommand();
     }
-
-
 
     protected class SpeechRecognitionListener implements RecognitionListener
     {

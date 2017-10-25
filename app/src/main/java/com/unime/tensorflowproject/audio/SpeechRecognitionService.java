@@ -18,7 +18,8 @@ public class SpeechRecognitionService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mSpeechRecognitionManager.startListening();
+        String smartObjectName = intent.getStringExtra("SmartObject");
+        mSpeechRecognitionManager.startListening(smartObjectName);
         return super.onStartCommand(intent, flags, startId);
     }
 

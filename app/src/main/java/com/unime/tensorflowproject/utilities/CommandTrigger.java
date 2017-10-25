@@ -1,99 +1,75 @@
 package com.unime.tensorflowproject.utilities;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
+
 /**
- * This class is a Singleton
+ *
  */
 
-
 public class CommandTrigger {
-    private static final int MILLISECONDS_BEFORE_SPEECH = 1500; // 1 prediction each 300 ms
-    private static final double PREDICTION_THRESHOLD = 0.90;
-    private static final String UNKNOWN_OBJECT = "unknown";
+    private List<SmartObject> smartObjectList;
+    private String name;
+    private String command;
 
-    private static CommandTrigger instance;
-    private static String smartObjectName = UNKNOWN_OBJECT;
-    private static double averageConfidence = 0.0;
-    private static int msBeforeSpeechCounter = 0;
-
-    private CommandTrigger() {
+    public CommandTrigger(String name, String command) {
+        smartObjectList = new ArrayList<>();
+        this.name = name;
+        this.command = command;
     }
 
-    public static String getSmartObjectName() {
-        return smartObjectName;
+    public String getCommand() {
+        return command;
     }
 
-    public static void setSmartObjectName(String smartObjectName) {
-        CommandTrigger.smartObjectName = smartObjectName;
+    public String getName() {
+        return name;
     }
 
-    public static double getAverageConfidence() {
-        return averageConfidence;
+    public List<SmartObject> getSmartObjectList() {
+        return smartObjectList;
     }
 
-    public static void setAverageConfidence(double averageConfidence) {
-        CommandTrigger.averageConfidence = averageConfidence;
+    private void fill() {
+        SmartObject lampObject = new SmartObject("lamp");
+        SmartObject doorObject = new SmartObject("door");
+
+        lampObject.setCommands(Arrays.asList("turn on", "turn off"));
+        doorObject.setCommands(Arrays.asList("open", "close"));
+
+        smartObjectList.add(lampObject);
+        smartObjectList.add(doorObject);
     }
 
-    public static int getMsBeforeSpeechCounter() {
-        return msBeforeSpeechCounter;
-    }
-
-    public static void setMsBeforeSpeechCounter(int msBeforeSpeechCounter) {
-        CommandTrigger.msBeforeSpeechCounter = msBeforeSpeechCounter;
-    }
-
-    public static CommandTrigger getInstance() {
-        // check if the instance has not been created yet
-
-        if(instance == null ) {
-            instance = new CommandTrigger();
+    public void tryCommand() {
+        fill(); // TODO remove this fill method and fill the List from the file
+        if(isValid(getName(), getCommand())) {
+            startCommand(getName(), getCommand());
         }
-        return instance;
     }
 
-    public static boolean hasToBeTriggered(String smartObjectName, double confidence, int lastProcessingTimeMs){
-        if(hasToBeReset(smartObjectName)) {
-            if(!smartObjectName.equals(UNKNOWN_OBJECT))
-                reset(smartObjectName, confidence, lastProcessingTimeMs);
-        } else {
-            update(confidence, lastProcessingTimeMs);
-            if(hasBeenRecognized()) {
-                return true;
-            }
-        }
-        return false;
+    private boolean isValid(String name, String command) {
+        Boolean []flag = new Boolean[1];
+        flag[0] = false;
+
+
+        // check if the command is contained in the commands associated with the object recognized
+        getSmartObjectList().stream()
+                .filter(smartObject -> name.equals(getName()))
+                .filter(smartObject -> smartObject.getCommands().contains(command))
+                .forEach(smartObject -> flag[0] = true);
+
+        return flag[0];
     }
 
-    private static boolean hasToBeReset(String smartObjectName) {
-        // the NeuralNetwork predicted a different object, so we have to reset all the variables
-        // or if in the given time slot we have not enough confidence
-        if(!smartObjectName.equals(getSmartObjectName()) || (getAverageConfidence() < PREDICTION_THRESHOLD
-                && getMsBeforeSpeechCounter() >= MILLISECONDS_BEFORE_SPEECH) || smartObjectName.equals(UNKNOWN_OBJECT)) {
-               return true;
-        }
-        return false;
-    }
-
-    private static boolean hasBeenRecognized() {
-        if((getAverageConfidence() >= PREDICTION_THRESHOLD
-                && getMsBeforeSpeechCounter() >= MILLISECONDS_BEFORE_SPEECH)) {
-            reset(getSmartObjectName(), 0.0, 0);
-            return true;
-        }
-        return false;
-    }
-
-    private static void reset(String smartObjectName, double averageConfidence, int lastProcessingTimeMs) {
-        setSmartObjectName(smartObjectName);
-        setAverageConfidence(averageConfidence);
-        setMsBeforeSpeechCounter(lastProcessingTimeMs);
-    }
-
-    private static void update(double confidence, int lastProcessingTimeMs) {
-        double average = (getAverageConfidence() + confidence) / 2;
-        int milliseconds = getMsBeforeSpeechCounter() + lastProcessingTimeMs;
-        setAverageConfidence(average);
-        setMsBeforeSpeechCounter(milliseconds);
+    private void startCommand(String name, String command) {
+        Log.d(TAG, "startCommand: ok");
+        return;
     }
 
 }
