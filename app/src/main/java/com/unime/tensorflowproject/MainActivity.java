@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
 
-
             downloadImgRecNN = new DownloadData(fileNameImgRecNN);
             downloadImgRecLabels = new DownloadData(fileNameImgRecLabels);
 

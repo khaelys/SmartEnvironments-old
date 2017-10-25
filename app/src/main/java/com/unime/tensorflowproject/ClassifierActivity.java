@@ -19,6 +19,7 @@ import com.unime.tensorflowproject.audio.SpeechRecognitionService;
 import com.unime.tensorflowproject.env.BorderedText;
 import com.unime.tensorflowproject.env.ImageUtils;
 import com.unime.tensorflowproject.env.Logger;
+import com.unime.tensorflowproject.utilities.CommandTrigger;
 
 import java.util.List;
 import java.util.Vector;
@@ -65,6 +66,8 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     private Intent mSpeechIntentService;
     private boolean commandCanBeStarted = true;
 
+    private int timeCounter = 0;
+    private double previousConfidence = 0.0;
 
 
     @Override
@@ -153,6 +156,9 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                             resultsView = (ResultsView) findViewById(R.id.results);
                         }
 
+                        // TODO: get the CommandTrigger's instance and check if the command
+                        CommandTrigger commandTrigger = CommandTrigger.getInstance();
+                        // has to beeen Triggered
                         if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
                             commandCanBeStarted = false;
                             trySpeech();
