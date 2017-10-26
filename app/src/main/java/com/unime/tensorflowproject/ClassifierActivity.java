@@ -155,8 +155,8 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                         if (resultsView == null) {
                             resultsView = (ResultsView) findViewById(R.id.results);
                         }
-                        //String prediction = results.get(0).getTitle();
-                        String prediction = "lamp";
+                        String prediction = results.get(0).getTitle();
+                        //String prediction = "lamp";
                         double confidence = results.get(0).getConfidence();
 
 

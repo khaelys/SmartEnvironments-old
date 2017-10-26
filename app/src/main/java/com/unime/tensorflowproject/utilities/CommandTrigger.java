@@ -60,9 +60,12 @@ public class CommandTrigger {
 
         // check if the command is contained in the commands associated with the object recognized
         getSmartObjectList().stream()
-                .filter(smartObject -> name.equals(getName()))
+                .filter(smartObject -> name.equals(smartObject.getName()))
                 .filter(smartObject -> smartObject.getCommands().contains(command))
                 .forEach(smartObject -> flag[0] = true);
+
+
+        Log.d(TAG, "isValid: " + flag[0] + " " + name + " " + command);
 
         return flag[0];
     }
