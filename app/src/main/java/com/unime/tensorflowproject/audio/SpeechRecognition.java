@@ -75,6 +75,7 @@ public class SpeechRecognition {
     public void useCommand() {
         Toast.makeText(getContext(), getCommand(), Toast.LENGTH_SHORT).show();
         Log.d(TAG, "useCommand: " + getCommand());
+        // TODO:
         CommandTrigger commandTrigger = new CommandTrigger(getSmartObjectName(), getCommand());
         commandTrigger.tryCommand();
     }
