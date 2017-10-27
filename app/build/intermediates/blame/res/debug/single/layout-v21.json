@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/Razor/.android/build-cache/dc36299830bdcfb79a6ebf148dd280c66ea86252/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/Razor/.android/build-cache/dc36299830bdcfb79a6ebf148dd280c66ea86252/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/Razor/.android/build-cache/dc36299830bdcfb79a6ebf148dd280c66ea86252/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/Users/Razor/.android/build-cache/dc36299830bdcfb79a6ebf148dd280c66ea86252/output/res/layout-v21/notification_action.xml"
+    }
+]

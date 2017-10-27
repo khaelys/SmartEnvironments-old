@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/Users/Razor/.android/build-cache/dc36299830bdcfb79a6ebf148dd280c66ea86252/output/res/color-v11/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/merged/debug/color-v11/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/Users/Razor/.android/build-cache/dc36299830bdcfb79a6ebf148dd280c66ea86252/output/res/color-v11/abc_background_cache_hint_selector_material_light.xml"
+    }
+]
