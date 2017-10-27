@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Razor/.android/build-cache/61358449c386340c61a88c6133dbdb64446046df/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-270270ed482bde776f4489a69f6c0b6daddb7e6e.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        revision="26.0.1"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/constraint-layout-solver-1.0.2-cad590c7a6e9944cc8157e6ef8f3cad2f11f1ac2.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/44e4e91edf6e9bbd8d78bee096302f23da919d7f/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-610f65058eb75d01d8808af4b608e776e91fe177.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/dc36299830bdcfb79a6ebf148dd280c66ea86252/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-1200143c4264ed0fc3fd6f6459d9ac48f449a5d2.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/d1e787c7150873456e5b8b2a5c7fbe2f82d9ccc5/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-3ebe056340144fdf46ad3c7d0499b57f95dc75a4.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/73c49a16b55319a7266fb1470c62501913f6fff1/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="911e32ad69cea4fa5fa2db60df88d541ef18b153">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-6ea2b038f843472dfdfca7436f76c31b859c266b.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/b8bf864fe127a7cb58c6e23350216ffd63dae3c2/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-5de1ed4523900de7378ccd04da7115ce36db807b.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/26.0.0-alpha1/support-annotations-26.0.0-alpha1.jar"
+        revision="26.0.1"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/support-annotations-26.0.0-alpha1-a9838314fbddbf397770bebf7c9960649dbaaf0f.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/f5bf889c10fc078ca5710e356666101f746a0dfa/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-d8eb7b8737c4fdddb157ddc70d9f1f5d27125129.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/dc4c9ef9987613d158d5a03a0c41384bc65d3af1/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-1a67dd9f0ce3aea8d32af64b29e32ca259eea749.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/8819fcdf2becd6b74e8cfccef8fc0fea9a5f91bd/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-89cde991718c48c7656ac7dbd0e90e32dfb587bc.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/ae306bfa092458ec03f8c827e75fe62881668788/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-59c069b7da2856157bd257d130bc4622eff80be6.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/7bd5cff99ad53f33f801fc75f5f9a10c45258a34/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-cc9abd353aaf93f75aab87782055155d9b354f2d.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/41cd906f073f9d1fc783f22ca164cccc348eda90/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-911028db16640f0d16e59ca30b86455db056fd83.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/763bd88bf0786c844419095cbbcb1b76ca231453/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-8f6b79d0efcc44f207a7bda64f84f14930cc09d5.jar" />
+    </item>
+    <item
+        jar="/Users/Razor/.android/build-cache/ca32a15140f7d7884b5bac9c16472bd1e0e0762c/output/jars/classes.jar"
+        revision="26.0.1"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/preJackPackagedLibraries/debug/jars/8000/1f/classes-df2386baaad21d1c69fb42981239b21f61fe6906.jar" />
+    </item>
+
+</items>

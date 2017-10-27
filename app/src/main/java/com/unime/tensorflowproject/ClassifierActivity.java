@@ -1,5 +1,6 @@
 package com.unime.tensorflowproject;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -8,14 +9,17 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
+import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
 
 import com.unime.tensorflowproject.OverlayView.DrawCallback;
+import com.unime.tensorflowproject.audio.SpeechRecognitionService;
 import com.unime.tensorflowproject.env.BorderedText;
 import com.unime.tensorflowproject.env.ImageUtils;
 import com.unime.tensorflowproject.env.Logger;
+import com.unime.tensorflowproject.utilities.SpeechRecognitionTrigger;
 
 import java.util.List;
 import java.util.Vector;
@@ -24,6 +28,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     private static final Logger LOGGER = new Logger();
 
     protected static final boolean SAVE_PREVIEW_BITMAP = false;
+    private static final String TAG = "ClassifierActivity";
 
     private ResultsView resultsView;
 
@@ -33,28 +38,12 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     private long lastProcessingTimeMs;
 
-    // These are the settings for the original v1 Inception model. If you want to
-    // use a model that's been produced from the TensorFlow for Poets codelab,
-    // you'll need to set IMAGE_SIZE = 299, IMAGE_MEAN = 128, IMAGE_STD = 128,
-    // INPUT_NAME = "Mul", and OUTPUT_NAME = "final_result".
-    // You'll also need to update the MODEL_FILE and LABEL_FILE paths to point to
-    // the ones you produced.
-    //
-    // To use v3 Inception model, strip the DecodeJpeg Op from your retrained
-    // model first:
-    //
-    // python strip_unused.py \
-    // --input_graph=<retrained-pb-file> \
-    // --output_graph=<your-stripped-pb-file> \
-    // --input_node_names="Mul" \
-    // --output_node_names="final_result" \
-    // --input_binary=true
     private static final int INPUT_SIZE = 224;
     private static final int IMAGE_MEAN = 128;
     private static final float IMAGE_STD = 128.0f;
     private static final String INPUT_NAME = "input";
     private static final String OUTPUT_NAME = "final_result";
-
+    
     private final String pathName = "/storage/emulated/0/Android/data/com.unime.tensorflowproject/files/Download/";
 
     private final String MODEL_FILE = pathName + "tensorflow_inception_graph.pb";
@@ -71,10 +60,12 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     private BorderedText borderedText;
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.camera_connection_fragment;
-    }
+    private Intent mSpeechIntentService;
+    private boolean commandCanBeStarted = true;
+
+    private int timeCounter = 0;
+    private double previousConfidence = 0.0;
+
 
     @Override
     protected Size getDesiredPreviewFrameSize() {
@@ -82,6 +73,11 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
 
     private static final float TEXT_SIZE_DIP = 10;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.camera_connection_fragment;
+    }
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -142,6 +138,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
         if (SAVE_PREVIEW_BITMAP) {
             ImageUtils.saveBitmap(croppedBitmap);
         }
+
         runInBackground(
                 new Runnable() {
                     @Override
@@ -149,16 +146,35 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                         final long startTime = SystemClock.uptimeMillis();
                         final List<Classifier.Recognition> results = classifier.recognizeImage(croppedBitmap);
                         lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+                        Log.d(TAG, "run: lastProcessingTimeMs = " + lastProcessingTimeMs);
                         LOGGER.i("Detect: %s", results);
                         cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
                         if (resultsView == null) {
                             resultsView = (ResultsView) findViewById(R.id.results);
                         }
+                        String prediction = results.get(0).getTitle();
+                        //String prediction = "lamp";
+                        double confidence = results.get(0).getConfidence();
+
+
+                        // check if the speech regonition has to been Triggered
+                        // if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
+                        if(SpeechRecognitionTrigger.hasToBeTriggered(prediction, confidence, lastProcessingTimeMs) && commandCanBeStarted) {
+                            commandCanBeStarted = false;
+                            trySpeech(prediction);
+                        }
+
                         resultsView.setResults(results);
                         requestRender();
                         readyForNextImage();
                     }
                 });
+    }
+
+    public void trySpeech(String smartObjectName) {
+        mSpeechIntentService = new Intent(this, SpeechRecognitionService.class);
+        mSpeechIntentService.putExtra("SmartObject", smartObjectName);
+        startService(mSpeechIntentService);
     }
 
     @Override
@@ -199,4 +215,11 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
         }
     }
 
+    @Override
+    public synchronized void onDestroy() {
+        if(mSpeechIntentService != null) {
+            stopService(mSpeechIntentService);
+        }
+        super.onDestroy();
+    }
 }

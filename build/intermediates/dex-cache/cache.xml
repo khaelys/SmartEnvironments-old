@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="95ca8717081f1c0d406bae688cd0f7893f331955">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f070ed1523f38f3eb9e50eb40c59fdbf3821fc78/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_0fa3ac22f5fbc993988caa54bb5bbdc4e695746e/classes.dex" />
+    </item>
+
+</items>

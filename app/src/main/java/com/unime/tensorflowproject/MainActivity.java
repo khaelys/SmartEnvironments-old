@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         btnDownloadImgRec.setOnClickListener((view) -> {
             Log.d(TAG, "downloadURL: Starting Async Task");
 
-
             downloadImgRecNN = new DownloadData(fileNameImgRecNN);
             downloadImgRecLabels = new DownloadData(fileNameImgRecLabels);
 
@@ -159,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         saveDownloadsState(Download.DownloadObjectType.NEURAL_NETWORK_IMG_REC_STATUS, imgRecNNState);
         saveDownloadsState(Download.DownloadObjectType.LABELS_IMG_REC_STATUS, imgRecLabelsState);
-        Log.d(TAG, "onDestroy: vediamo " + imgRecNNState + imgRecLabelsState);
+//        Log.d(TAG, "onDestroy: vediamo " + imgRecNNState + imgRecLabelsState);
         super.onDestroy();
     }
 

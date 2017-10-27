@@ -1,0 +1,21 @@
+#Internal package file, do not edit.
+#Wed Oct 11 10:28:16 CEST 2017
+2.base=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/mergeJavaRes/androidTest/debug/jars/2/1f/main.jar
+5.file=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/resources-debug-androidTest.ap_/AndroidManifest.xml
+5.set=ANDROID_RESOURCE
+3.base=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/jack/androidTest/debug/folders/1000/1f/main
+2.set=JAVA_RESOURCE
+4.base=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/mergeJavaRes/androidTest/debug/jars/2/1f/main.jar
+count=6
+0.file=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/mergeJavaRes/androidTest/debug/jars/2/1f/main.jar/junit/runner/smalllogo.gif
+5.base=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/resources-debug-androidTest.ap_
+4.set=JAVA_RESOURCE
+1.file=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/resources-debug-androidTest.ap_/resources.arsc
+1.set=ANDROID_RESOURCE
+2.file=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/mergeJavaRes/androidTest/debug/jars/2/1f/main.jar/LICENSE-junit.txt
+0.base=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/mergeJavaRes/androidTest/debug/jars/2/1f/main.jar
+3.file=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/jack/androidTest/debug/folders/1000/1f/main/classes.dex
+3.set=DEX
+1.base=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/res/resources-debug-androidTest.ap_
+4.file=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/mergeJavaRes/androidTest/debug/jars/2/1f/main.jar/junit/runner/logo.gif
+0.set=JAVA_RESOURCE
