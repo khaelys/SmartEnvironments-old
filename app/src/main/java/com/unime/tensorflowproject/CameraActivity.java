@@ -284,7 +284,7 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
                     shouldShowRequestPermissionRationale(PERMISSION_STORAGE) ||
                     shouldShowRequestPermissionRationale(PERMISSION_AUDIO)) {
                 Toast.makeText(CameraActivity.this,
-                        "Camera AND storage permission are required for this demo", Toast.LENGTH_LONG).show();
+                        "Camera AND storage AND audio permission are required", Toast.LENGTH_LONG).show();
             }
             requestPermissions(new String[]{PERMISSION_CAMERA, PERMISSION_STORAGE, PERMISSION_AUDIO}, PERMISSIONS_REQUEST);
         }

@@ -1,5 +1,5 @@
 #Library properties
-#Thu Oct 26 11:54:08 CEST 2017
+#Mon Oct 30 11:45:43 CET 2017
 lib.version.major=3
 jayce.version.minor=4
 config.jack.optimization.expression-simplifier=true

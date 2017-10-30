@@ -1,6 +1,10 @@
 package com.unime.tensorflowproject.utilities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+
+import com.unime.tensorflowproject.interaction.SmartObjectInteractionService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,11 +20,14 @@ public class CommandTrigger {
     private List<SmartObject> smartObjectList;
     private String name;
     private String command;
+    private Context context;
+    private Intent mSmartObjectInteractionService;
 
-    public CommandTrigger(String name, String command) {
+    public CommandTrigger(String name, String command, Context context) {
         smartObjectList = new ArrayList<>();
         this.name = name;
         this.command = command;
+        this.context = context;
     }
 
     public String getCommand() {
@@ -72,7 +79,12 @@ public class CommandTrigger {
 
     private void startCommand(String name, String command) {
         Log.d(TAG, "startCommand: ok");
-        return;
+
+        mSmartObjectInteractionService = new Intent(context, SmartObjectInteractionService.class);
+        mSmartObjectInteractionService.putExtra("name", name);
+        mSmartObjectInteractionService.putExtra("command", command);
+
+        context.startService(mSmartObjectInteractionService);
     }
 
 }

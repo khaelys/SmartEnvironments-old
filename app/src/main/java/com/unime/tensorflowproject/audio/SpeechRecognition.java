@@ -76,7 +76,7 @@ public class SpeechRecognition {
         Toast.makeText(getContext(), getCommand(), Toast.LENGTH_SHORT).show();
         Log.d(TAG, "useCommand: " + getCommand());
         // TODO:
-        CommandTrigger commandTrigger = new CommandTrigger(getSmartObjectName(), getCommand());
+        CommandTrigger commandTrigger = new CommandTrigger(getSmartObjectName(), getCommand(), getContext());
         commandTrigger.tryCommand();
     }
 
@@ -104,8 +104,6 @@ public class SpeechRecognition {
         @Override
         public void onError(int error)
         {
-            //mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
-
             Log.d(TAG, "error = " + error);
         }
 

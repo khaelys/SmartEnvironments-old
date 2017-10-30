@@ -43,7 +43,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     private static final float IMAGE_STD = 128.0f;
     private static final String INPUT_NAME = "input";
     private static final String OUTPUT_NAME = "final_result";
-    
+
     private final String pathName = "/storage/emulated/0/Android/data/com.unime.tensorflowproject/files/Download/";
 
     private final String MODEL_FILE = pathName + "tensorflow_inception_graph.pb";
@@ -214,6 +214,16 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
             borderedText.drawLines(canvas, 10, canvas.getHeight() - 10, lines);
         }
     }
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public synchronized void onDestroy() {

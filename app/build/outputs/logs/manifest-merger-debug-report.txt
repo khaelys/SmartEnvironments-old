@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:2:1-42:12
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:2:1-54:12
 	package
 		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:3:5-42
 		INJECTED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml
@@ -41,8 +41,37 @@ uses-permission#android.permission.RECORD_AUDIO
 ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:13:5-71
 	android:name
 		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:13:22-68
+uses-permission#android.permission.BLUETOOTH
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:15:5-67
+MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:11:5-13:36
+	android:required
+		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:13:9-33
+	android:name
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:15:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:16:5-73
+MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:14:5-16:36
+	android:required
+		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:16:9-33
+	android:name
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:16:22-71
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:17:5-81
+MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:18:5-81
+	android:name
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:17:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:18:5-79
+	android:name
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:18:22-76
+uses-feature#android.hardware.bluetooth_le
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:20:5-89
+	android:required
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:20:64-87
+	android:name
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:20:19-63
 application
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:15:5-40:19
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:22:5-52:19
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/Razor/.android/build-cache/ae306bfa092458ec03f8c827e75fe62881668788/output/AndroidManifest.xml:9:5-20
 MERGED from [org.tensorflow:tensorflow-android:1.3.0] /Users/Razor/.android/build-cache/73c49a16b55319a7266fb1470c62501913f6fff1/output/AndroidManifest.xml:5:5-6:19
 MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:20:5-42:19
@@ -58,45 +87,51 @@ MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/Razor/.an
 MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/Razor/.android/build-cache/f5bf889c10fc078ca5710e356666101f746a0dfa/output/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Razor/.android/build-cache/ca32a15140f7d7884b5bac9c16472bd1e0e0762c/output/AndroidManifest.xml:29:5-20
 	android:label
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:18:9-41
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:25:9-41
 	android:supportsRtl
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:20:9-35
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:27:9-35
 	android:roundIcon
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:19:9-54
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:26:9-54
 	android:allowBackup
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:16:9-35
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:23:9-35
 	android:icon
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:17:9-43
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:24:9-43
 	android:theme
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:21:9-40
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:28:9-40
 activity#com.unime.tensorflowproject.MainActivity
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:23:9-29:20
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:30:9-36:20
 	android:name
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:23:19-47
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:30:19-47
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:24:13-28:29
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:31:13-35:29
 action#android.intent.action.MAIN
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:25:17-69
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:32:17-69
 	android:name
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:25:25-66
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:32:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:27:17-77
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:34:17-77
 	android:name
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:27:27-74
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:34:27-74
 activity#com.unime.tensorflowproject.ClassifierActivity
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:30:9-32:51
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:37:9-39:51
 	android:screenOrientation
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:32:13-49
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:39:13-49
 	android:name
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:31:13-47
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:38:13-47
 service#com.unime.tensorflowproject.audio.SpeechRecognitionService
-ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:34:9-38:15
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:41:9-45:15
 	android:exported
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:36:13-37
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:43:13-37
 	android:description
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:37:13-83
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:44:13-83
 	android:name
-		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:35:13-59
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:42:13-59
+service#com.unime.tensorflowproject.interaction.SmartObjectInteractionService
+ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:47:9-50:15
+	android:exported
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:49:13-37
+	android:name
+		ADDED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:48:13-70
 uses-sdk
 INJECTED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/Razor/.android/build-cache/ae306bfa092458ec03f8c827e75fe62881668788/output/AndroidManifest.xml:5:5-7:41
@@ -122,29 +157,13 @@ MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Razor/.and
 		INJECTED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml
 uses-permission#android.permission.READ_PHONE_STATE
-IMPLIED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:2:1-42:12 reason: tensorflow.contrib.android has a targetSdkVersion < 4
+IMPLIED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:2:1-54:12 reason: tensorflow.contrib.android has a targetSdkVersion < 4
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:2:1-42:12 reason: tensorflow.contrib.android requested WRITE_EXTERNAL_STORAGE
-uses-permission#android.permission.BLUETOOTH
-ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:11:5-13:36
-	android:required
-		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:13:9-33
-	android:name
-		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:12:9-52
-uses-permission#android.permission.BLUETOOTH_ADMIN
-ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:14:5-16:36
-	android:required
-		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:16:9-33
-	android:name
-		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:15:9-58
+IMPLIED from /Users/Razor/AndroidStudioProjects/TensorflowProject/app/src/main/AndroidManifest.xml:2:1-54:12 reason: tensorflow.contrib.android requested WRITE_EXTERNAL_STORAGE
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
 ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:17:5-81
 	android:name
 		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:17:22-78
-uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:18:5-81
-	android:name
-		ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:18:22-78
 receiver#org.altbeacon.beacon.startup.StartupBroadcastReceiver
 ADDED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.android/build-cache/7459341501fbd95eab240c42d9496ea6b9bf5a3c/output/AndroidManifest.xml:21:9-27:20
 	android:name

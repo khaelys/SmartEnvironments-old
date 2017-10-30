@@ -10,24 +10,28 @@ import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.BeaconTransmitter;
 
 import java.util.List;
 
+
 /**
  *
  */
 
-public class SmartObjectInputService extends IntentService {
+public class SmartObjectInteractionService extends IntentService {
+    private static final String SMART_OBJECT_INTERACTION_SERVICE_TAG = "SmartObjectInteractionService";
+
     private BeaconTransmitter beaconTransmitter;
     private BeaconParser beaconParser;
     private Counter dup;
 
     int REQUEST_ENABLE_BT = 1;
 
-    private BluetoothAdapter adapter;
+    private BluetoothAdapter mBluetoothAdapter;
     private static final long SCAN_PERIOD = 10000;
     private Handler mHandler;
     private BluetoothLeScanner mLEScanner;
@@ -41,6 +45,10 @@ public class SmartObjectInputService extends IntentService {
     private String characteristicUUID = "";
     private BluetoothGattCharacteristic characteristic = null;
 
+    public SmartObjectInteractionService() {
+        super("SmartObjectInteractionService");
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -49,17 +57,28 @@ public class SmartObjectInputService extends IntentService {
         beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
 
         mHandler = new Handler();
-        adapter = BluetoothAdapter.getDefaultAdapter();
-        if (null != adapter) {
-            if (!adapter.isEnabled()) {
-                // TODO: User must activate bluetooth
-            }
+
+        // Use this check to determine whether BLE is supported on the device. Then
+        // you can selectively disable BLE-related features.
+//        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+//            Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
+//            finish();
+//        }
+
+        // Ensures Bluetooth is available on the device and it is enabled. If not,
+        // displays a dialog requesting user permission to enable Bluetooth.
+        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            // TODO: this statement cause the destruction of the previous activity
+            // we have to find a solution
+            getApplicationContext().startActivity(enableBtIntent);
         }
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-
+        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: start");
+        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: end");
     }
 
 
