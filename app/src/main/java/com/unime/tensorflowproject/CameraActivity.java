@@ -219,10 +219,11 @@ public abstract class CameraActivity extends AppCompatActivity implements OnImag
     public synchronized void onPause() {
         LOGGER.d("onPause " + this);
 
-        if (!isFinishing()) {
-            LOGGER.d("Requesting finish");
-            finish();
-        }
+        // I am commenting this out because i don't want to destroy this activity!
+//        if (!isFinishing()) {
+//            LOGGER.d("Requesting finish");
+//            finish();
+//        }
 
         handlerThread.quitSafely();
         try {
