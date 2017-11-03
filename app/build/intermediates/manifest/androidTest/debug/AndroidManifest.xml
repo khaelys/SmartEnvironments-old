@@ -13,7 +13,7 @@
         android:label="Tests for com.unime.tensorflowproject"
         android:targetPackage="com.unime.tensorflowproject" />
 
-    <application>
+    <application android:debuggable="true" >
         <uses-library android:name="android.test.runner" />
     </application>
 

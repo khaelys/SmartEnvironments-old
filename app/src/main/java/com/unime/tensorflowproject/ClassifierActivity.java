@@ -44,6 +44,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     private static final String INPUT_NAME = "input";
     private static final String OUTPUT_NAME = "final_result";
 
+    // TODO: substitute hardcoded pathname (change from device to device)
     private final String pathName = "/storage/emulated/0/Android/data/com.unime.tensorflowproject/files/Download/";
 
     private final String MODEL_FILE = pathName + "tensorflow_inception_graph.pb";
@@ -62,9 +63,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     private Intent mSpeechIntentService;
     private boolean commandCanBeStarted = true;
-
-    private int timeCounter = 0;
-    private double previousConfidence = 0.0;
 
 
     @Override
@@ -152,13 +150,13 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                         if (resultsView == null) {
                             resultsView = (ResultsView) findViewById(R.id.results);
                         }
-                        String prediction = results.get(0).getTitle();
-                        //String prediction = "lamp";
+                        // TODO: check which of the two instruction have to be commented out
+//                        String prediction = results.get(0).getTitle();
+                        String prediction = "lamp";
                         double confidence = results.get(0).getConfidence();
 
 
                         // check if the speech regonition has to been Triggered
-                        // if(results.get(0).getConfidence() > 0.90 && commandCanBeStarted) {
                         if(SpeechRecognitionTrigger.hasToBeTriggered(prediction, confidence, lastProcessingTimeMs) && commandCanBeStarted) {
                             commandCanBeStarted = false;
                             trySpeech(prediction);
@@ -172,7 +170,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
 
     public void trySpeech(String smartObjectName) {
-        mSpeechIntentService = new Intent(this, SpeechRecognitionService.class);
+        mSpeechIntentService = new Intent(ClassifierActivity.this, SpeechRecognitionService.class);
         mSpeechIntentService.putExtra("SmartObject", smartObjectName);
         startService(mSpeechIntentService);
     }

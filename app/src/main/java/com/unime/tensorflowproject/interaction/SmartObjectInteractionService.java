@@ -65,12 +65,14 @@ public class SmartObjectInteractionService extends IntentService {
 //            finish();
 //        }
 
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         // Ensures Bluetooth is available on the device and it is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
-        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
+        if (mBluetoothAdapter != null && !mBluetoothAdapter.isEnabled()) {
+            Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "mBlueetoothAdapter is null: " + (mBluetoothAdapter == null));
+
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            // TODO: this statement cause the destruction of the previous activity
-            // we have to find a solution
             getApplicationContext().startActivity(enableBtIntent);
         }
     }
@@ -80,6 +82,4 @@ public class SmartObjectInteractionService extends IntentService {
         Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: start");
         Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: end");
     }
-
-
 }

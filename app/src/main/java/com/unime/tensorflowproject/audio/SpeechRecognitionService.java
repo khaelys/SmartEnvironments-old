@@ -33,5 +33,6 @@ public class SpeechRecognitionService extends Service {
     public void onDestroy() {
         Log.d(SPEECH_RECOGNITION_SERVICE_TAG, "onDestroy");
         mSpeechRecognitionManager.destroySpeechRecognizer();
+
     }
 }

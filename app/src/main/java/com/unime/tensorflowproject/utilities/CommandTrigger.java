@@ -38,6 +38,10 @@ public class CommandTrigger {
         return name;
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     public List<SmartObject> getSmartObjectList() {
         return smartObjectList;
     }
@@ -80,11 +84,11 @@ public class CommandTrigger {
     private void startCommand(String name, String command) {
         Log.d(TAG, "startCommand: ok");
 
-        mSmartObjectInteractionService = new Intent(context, SmartObjectInteractionService.class);
+        mSmartObjectInteractionService = new Intent(getContext(), SmartObjectInteractionService.class);
         mSmartObjectInteractionService.putExtra("name", name);
         mSmartObjectInteractionService.putExtra("command", command);
 
-        context.startService(mSmartObjectInteractionService);
+        getContext().startService(mSmartObjectInteractionService);
     }
 
 }

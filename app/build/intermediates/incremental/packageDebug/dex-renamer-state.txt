@@ -1,4 +1,4 @@
-#Mon Oct 30 11:45:45 CET 2017
+#Fri Nov 03 17:52:21 CET 2017
 base.0=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/jack/debug/folders/1000/1f/main
 renamed.0=classes.dex
 file.0=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/jack/debug/folders/1000/1f/main/classes.dex
