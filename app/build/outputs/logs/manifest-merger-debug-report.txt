@@ -10,6 +10,7 @@ MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/Razo
 MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/transition-26.0.0-alpha1.aar/b66afb8d259e5448c360ac450b1e5407/AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/support-v4-26.0.0-alpha1.aar/c0c2923e38bdc4d587d2526448cc3e5a/AndroidManifest.xml:17:1-31:12
 MERGED from [org.tensorflow:tensorflow-android:1.3.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/tensorflow-android-1.3.0.aar/afcec7ab1a201a2e6283b24194785b65/AndroidManifest.xml:2:1-8:12
+MERGED from [com.android.volley:volley:1.0.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/c16d2224ac07224c61ce7176cf0c8b82/AndroidManifest.xml:2:1-11:12
 MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.gradle/caches/transforms-1/files-1.1/android-beacon-library-2.12.3.aar/0753462ed028eec350a5cdd809a34c6f/AndroidManifest.xml:2:1-44:12
 MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.0.0-alpha1.aar/c59bf572270de3ebe476eee906a143e5/AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.0.0-alpha1.aar/fc9e8c2dd7787dadfaec1669a960cc3a/AndroidManifest.xml:17:1-28:12
@@ -110,6 +111,8 @@ MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Razor/.gradle/
 MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/support-v4-26.0.0-alpha1.aar/c0c2923e38bdc4d587d2526448cc3e5a/AndroidManifest.xml:29:5-20
 MERGED from [org.tensorflow:tensorflow-android:1.3.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/tensorflow-android-1.3.0.aar/afcec7ab1a201a2e6283b24194785b65/AndroidManifest.xml:5:5-6:19
 MERGED from [org.tensorflow:tensorflow-android:1.3.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/tensorflow-android-1.3.0.aar/afcec7ab1a201a2e6283b24194785b65/AndroidManifest.xml:5:5-6:19
+MERGED from [com.android.volley:volley:1.0.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/c16d2224ac07224c61ce7176cf0c8b82/AndroidManifest.xml:9:5-20
+MERGED from [com.android.volley:volley:1.0.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/c16d2224ac07224c61ce7176cf0c8b82/AndroidManifest.xml:9:5-20
 MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.gradle/caches/transforms-1/files-1.1/android-beacon-library-2.12.3.aar/0753462ed028eec350a5cdd809a34c6f/AndroidManifest.xml:20:5-42:19
 MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.gradle/caches/transforms-1/files-1.1/android-beacon-library-2.12.3.aar/0753462ed028eec350a5cdd809a34c6f/AndroidManifest.xml:20:5-42:19
 MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.0.0-alpha1.aar/c59bf572270de3ebe476eee906a143e5/AndroidManifest.xml:26:5-20
@@ -186,6 +189,8 @@ MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/Razor/.gradle/
 MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/transition-26.0.0-alpha1.aar/b66afb8d259e5448c360ac450b1e5407/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/support-v4-26.0.0-alpha1.aar/c0c2923e38bdc4d587d2526448cc3e5a/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/support-v4-26.0.0-alpha1.aar/c0c2923e38bdc4d587d2526448cc3e5a/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.volley:volley:1.0.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/c16d2224ac07224c61ce7176cf0c8b82/AndroidManifest.xml:7:5-43
+MERGED from [com.android.volley:volley:1.0.0] /Users/Razor/.gradle/caches/transforms-1/files-1.1/volley-1.0.0.aar/c16d2224ac07224c61ce7176cf0c8b82/AndroidManifest.xml:7:5-43
 MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.gradle/caches/transforms-1/files-1.1/android-beacon-library-2.12.3.aar/0753462ed028eec350a5cdd809a34c6f/AndroidManifest.xml:7:5-9:41
 MERGED from [org.altbeacon:android-beacon-library:2.12.3] /Users/Razor/.gradle/caches/transforms-1/files-1.1/android-beacon-library-2.12.3.aar/0753462ed028eec350a5cdd809a34c6f/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/Razor/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.0.0-alpha1.aar/c59bf572270de3ebe476eee906a143e5/AndroidManifest.xml:20:5-44
