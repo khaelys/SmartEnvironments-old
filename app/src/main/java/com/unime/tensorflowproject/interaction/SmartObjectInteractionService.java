@@ -2,11 +2,6 @@ package com.unime.tensorflowproject.interaction;
 
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanFilter;
-import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -38,25 +32,15 @@ public class SmartObjectInteractionService extends IntentService {
     private Counter dup;
     private String uuid_room = "INSERT UUID";
     private CustomResponse mCustomResponse;
-    // Instantiate the RequestQueue.
-
 
 
     int REQUEST_ENABLE_BT = 1;
 
     private BluetoothAdapter mBluetoothAdapter;
-    private static final long SCAN_PERIOD = 10000;
-    private Handler mHandler;
-    private BluetoothLeScanner mLEScanner;
-    private ScanSettings settings;
-    private BluetoothGatt mGatt;
+
 
     private boolean connected = false;
 
-    private List<ScanFilter> filters;
-    private String serviceUUID = "";
-    private String characteristicUUID = "";
-    private BluetoothGattCharacteristic characteristic = null;
 
     public SmartObjectInteractionService() {
         super("SmartObjectInteractionService");
@@ -68,8 +52,6 @@ public class SmartObjectInteractionService extends IntentService {
 
         beaconParser = new BeaconParser().setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25");
         beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
-
-        mHandler = new Handler();
 
         // Use this check to determine whether BLE is supported on the device. Then
         // you can selectively disable BLE-related features.
@@ -95,6 +77,7 @@ public class SmartObjectInteractionService extends IntentService {
         Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: start");
         // TODO: check if bluetooth was activated or not
         // maybe we have to put a logic here
+        dup = new Counter();
 
         String url = "http://212.189.207.53:8586/smartenv/board/" + uuid_room;
 
