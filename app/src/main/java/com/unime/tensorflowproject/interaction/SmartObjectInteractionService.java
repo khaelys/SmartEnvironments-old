@@ -133,7 +133,7 @@ public class SmartObjectInteractionService extends IntentService {
                     Log.e(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: " + e.getMessage());
                 }
             }
-        } catch (JSONException e) {
+        } catch (JSONException | NullPointerException e) {
             Log.e(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: " + e.getMessage());
         }
 
