@@ -7,9 +7,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.BeaconTransmitter;
@@ -30,8 +27,7 @@ public class SmartObjectInteractionService extends IntentService {
     private BeaconTransmitter beaconTransmitter;
     private BeaconParser beaconParser;
     private Counter dup;
-    private String uuid_room = "INSERT UUID";
-    private CustomResponse mCustomResponse;
+    private String mResponse;
 
 
     int REQUEST_ENABLE_BT = 1;
@@ -75,22 +71,23 @@ public class SmartObjectInteractionService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: start");
+        assert intent != null;
+
         // TODO: check if bluetooth was activated or not
         // maybe we have to put a logic here
         dup = new Counter();
 
-        String url = "http://212.189.207.53:8586/smartenv/board/" + uuid_room;
+        mResponse = intent.getStringExtra("response");
+        startAction(mResponse);
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.GET,
-                url,
-                response -> mCustomResponse = new CustomResponse(response),
-                error -> Log.e(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onErrorResponse: " + error.getMessage())
-        );
+        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: end");
 
+    }
+
+    private void startAction(String response) {
         try {
-            JSONObject reader = new JSONObject(mCustomResponse.getResponse());
+            Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "startAction: start");
+            JSONObject reader = new JSONObject(mResponse);
             String name = reader.getString("name");
 
             JSONArray jArray = reader.getJSONArray("services");
@@ -99,45 +96,41 @@ public class SmartObjectInteractionService extends IntentService {
                 try {
                     JSONObject service_obj = jArray.getJSONObject(i);
                     String type = service_obj.getString("type");
-                    Boolean fast_triggered = service_obj.getBoolean("fast_triggered");
+//                    Boolean fast_triggered = service_obj.getBoolean("fast_triggered");
                     String service_name = service_obj.getString("name");
                     final String otp = service_obj.getString("otp");
-                    final JSONArray service_id = service_obj.getJSONArray("code");
+                    final JSONArray service_id = service_obj.getJSONArray("service_id");
+                    String service_id_data = null;
 
-                    Log.i("fast triggered", fast_triggered.toString());
 
-                    if (fast_triggered) {
-                        if (beaconTransmitter.isStarted()) {
-                            beaconTransmitter.stopAdvertising();
-                        }
-
-                        String service_id_data = null;
-
-                        try {
-                            service_id_data = service_id.get(0).toString();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        Beacon beacon = createBeacon(service_id_data, otp, dup);
-
-                        beaconTransmitter.startAdvertising(beacon);
-
-                        // stop advertising after 3 seconds
-                        Handler mCanceller = new Handler();
-                        mCanceller.postDelayed(() -> beaconTransmitter.stopAdvertising(), 3000);
-
+                    if (beaconTransmitter.isStarted()) {
+                        beaconTransmitter.stopAdvertising();
                     }
+
+                    try {
+                        service_id_data = service_id.get(0).toString();
+//                        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "startAction: " + service_id_data);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Beacon beacon = createBeacon(service_id_data, otp, dup);
+
+                    beaconTransmitter.startAdvertising(beacon);
+
+                    // stop advertising after 3 seconds
+                    Handler mCanceller = new Handler();
+                    mCanceller.postDelayed(() -> beaconTransmitter.stopAdvertising(), 3000);
+
                 } catch (JSONException e) {
-                    Log.e(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: " + e.getMessage());
+                    Log.e(SMART_OBJECT_INTERACTION_SERVICE_TAG, "startAction: JsonException1 " + e.getMessage());
                 }
             }
         } catch (JSONException | NullPointerException e) {
-            Log.e(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: " + e.getMessage());
+            Log.e(SMART_OBJECT_INTERACTION_SERVICE_TAG, "startAction: JsonException2 " + e.getMessage());
         }
 
-        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: end");
+        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "startAction: end");
     }
 
     public Beacon createBeacon(String service_id, String otp, Counter dup){
@@ -155,21 +148,5 @@ public class SmartObjectInteractionService extends IntentService {
         Log.i("BEACON", beacon.toString());
 
         return beacon;
-    }
-
-    private class CustomResponse {
-        private String response;
-
-        private CustomResponse(String response) {
-            this.response = response;
-        }
-
-        private String getResponse() {
-            return response;
-        }
-
-        private void setResponse(String response) {
-            this.response = response;
-        }
     }
 }

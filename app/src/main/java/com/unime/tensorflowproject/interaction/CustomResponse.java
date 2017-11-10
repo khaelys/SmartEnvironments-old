@@ -3,15 +3,15 @@ package com.unime.tensorflowproject.interaction;
 public class CustomResponse {
     private String response;
 
-    private CustomResponse(String response) {
+    public CustomResponse(String response) {
         this.response = response;
     }
 
-    private String getResponse() {
+    public String getResponse() {
         return response;
     }
 
-    private void setResponse(String response) {
+    public void setResponse(String response) {
         this.response = response;
     }
 }
