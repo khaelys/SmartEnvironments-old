@@ -29,17 +29,22 @@ public class SmartObjectInteractionService extends IntentService {
     private Counter dup;
     private String mResponse;
 
-
-    int REQUEST_ENABLE_BT = 1;
+    private int commandId;
 
     private BluetoothAdapter mBluetoothAdapter;
 
 
-    private boolean connected = false;
-
 
     public SmartObjectInteractionService() {
         super("SmartObjectInteractionService");
+    }
+
+    public int getCommandId() {
+        return commandId;
+    }
+
+    public void setCommandId(int commandId) {
+        this.commandId = commandId;
     }
 
     @Override
@@ -78,6 +83,17 @@ public class SmartObjectInteractionService extends IntentService {
         dup = new Counter();
 
         mResponse = intent.getStringExtra("response");
+
+        // TODO substitute with a proper logic
+        // 0000 = turn on
+        // 0001 = turn off
+        String command = intent.getStringExtra("command");
+        if(command.equals("turn off")) {
+            setCommandId(1);
+        } else {
+            setCommandId(0);
+        }
+
         startAction(mResponse);
 
         Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "onHandleIntent: end");
@@ -96,7 +112,6 @@ public class SmartObjectInteractionService extends IntentService {
                 try {
                     JSONObject service_obj = jArray.getJSONObject(i);
                     String type = service_obj.getString("type");
-//                    Boolean fast_triggered = service_obj.getBoolean("fast_triggered");
                     String service_name = service_obj.getString("name");
                     final String otp = service_obj.getString("otp");
                     final JSONArray service_id = service_obj.getJSONArray("service_id");
@@ -108,8 +123,9 @@ public class SmartObjectInteractionService extends IntentService {
                     }
 
                     try {
-                        service_id_data = service_id.get(0).toString();
-//                        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "startAction: " + service_id_data);
+                        // TODO search on service_id for the command
+                        service_id_data = service_id.get(getCommandId()).toString();
+                        Log.d(SMART_OBJECT_INTERACTION_SERVICE_TAG, "startAction: " + service_id_data);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

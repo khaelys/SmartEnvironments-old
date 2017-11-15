@@ -56,7 +56,7 @@ public class CommandTrigger {
         SmartObject doorObject = new SmartObject("door");
 
         lampObject.setCommands(Arrays.asList("turn on", "turn off"));
-        doorObject.setCommands(Arrays.asList("open", "close"));
+        doorObject.setCommands(Arrays.asList("open"));
 
         smartObjectList.add(lampObject);
         smartObjectList.add(doorObject);

@@ -213,16 +213,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
         }
     }
 
-
-
-
-
-
-
-
-
-
-
     @Override
     public synchronized void onDestroy() {
         if(mSpeechIntentService != null) {

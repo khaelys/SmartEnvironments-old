@@ -11,7 +11,13 @@ import com.unime.tensorflowproject.interaction.SmartObjectInteractionService;
 
 public class ActionTrigger {
     public static final String TAG = "ActionTrigger";
-    private String uuid_room = "86d11bbc-2c59-4bbf-a5be-bf166b1aebf7";
+    public static final String LAMP = "lamp";
+    public static final String DOOR = "door";
+    public static final String UUID_LAMP = "c9d3a528-cb01-409a-8d53-df800cf1bb3d";
+    public static final String UUID_DOOR = "86d11bbc-2c59-4bbf-a5be-bf166b1aebf7";
+
+    private String uuidObject;
+
 
     private CommandTrigger commandTrigger;
     private Intent mSmartObjectInteractionService;
@@ -24,9 +30,22 @@ public class ActionTrigger {
         return commandTrigger;
     }
 
+    public String getUuidObject() {
+        return uuidObject;
+    }
+
+    public void setUuidObject(String uuidObject) {
+        this.uuidObject = uuidObject;
+    }
+
     public void makeRequest(){
+        if(getCommandTrigger().getName().equals(DOOR)) {
+            setUuidObject(UUID_DOOR);
+        } else if(getCommandTrigger().getName().equals(LAMP)){
+            setUuidObject(UUID_LAMP);
+        }
         RequestQueue requestQueue = Volley.newRequestQueue(getCommandTrigger().getContext());
-        String url = "http://212.189.207.225:9999/smartenv/" + uuid_room;
+        String url = "http://212.189.207.225:9999/smartenv/" + uuidObject;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(

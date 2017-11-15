@@ -1,4 +1,4 @@
-#Thu Nov 09 10:26:05 CET 2017
-base.0=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/dexMerger/debug/4
+#Wed Nov 15 15:10:23 CET 2017
+base.0=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/dexMerger/debug/23
 renamed.0=classes.dex
-file.0=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/dexMerger/debug/4/classes.dex
+file.0=/Users/Razor/AndroidStudioProjects/TensorflowProject/app/build/intermediates/transforms/dexMerger/debug/23/classes.dex

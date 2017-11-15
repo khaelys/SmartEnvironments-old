@@ -130,7 +130,7 @@ public class SpeechRecognition {
         {
             Log.d(TAG, "onResults");
             ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            setCommand(matches.get(0));
+            setCommand(matches.get(0).toLowerCase());
             useCommand();
         }
 
